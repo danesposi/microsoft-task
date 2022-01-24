@@ -22,7 +22,6 @@ const TaskDisplayer = () => {
     const globalState = useSelector(store => store)
     const selectedList = globalState?.taskListReducer?.selectedList
     const selectedListTitle = globalState?.taskListReducer?.listTitle
-    const refresh = globalState?.refreshReducer?.refreshTask
     
     const [listTitle, setListTitle] = useState(selectedListTitle)
 
@@ -39,7 +38,7 @@ const TaskDisplayer = () => {
     useEffect(() => {
         getTask(selectedList)
         setListTitle(selectedListTitle)
-    }, [selectedList, refresh])
+    }, [selectedList])
 
 
     const handleSubmit = (evt) => {
@@ -65,11 +64,9 @@ const TaskDisplayer = () => {
 
     const modifyListTitle = async (id, data) => {
         const listItem = await modifyListTitleApi(id, data)
-        dispatch(refreshList())
     }
 
     const handleSubmitListTitle = (evt) => {
-        evt.preventDefault()
         let data = {
             title: listTitle
         }

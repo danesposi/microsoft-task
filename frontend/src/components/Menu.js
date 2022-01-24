@@ -56,7 +56,7 @@ const Menu = () => {
                 <div className='flex flex-col ml-2 space-y-2'>
                     {
                         !listState 
-                        ? <p>No data available :(</p>
+                        ? null
                         : listState.map(list => <List key={list.id} props={list}/>)
                     }
                 </div>

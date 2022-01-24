@@ -1,6 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { refreshStep } from '../store';
 import { deleteStepApi, completeStepApi } from '../services/api';
 import {
     CheckIcon,

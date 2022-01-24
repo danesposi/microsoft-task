@@ -50,7 +50,6 @@ const Sidebar = () => {
 
   const deleteTask = async (id) => {
     let status = await deleteTaskApi(id)
-    dispatch(refreshTask())
     dispatch(closeSidebar())
   }
 
@@ -134,7 +133,9 @@ const Sidebar = () => {
         <textarea disabled className='cursor-not-allowed border mx-2 p-2 text-sm flex-1' placeholder='Add note'/>
         <div className='flex border-t text-sm opacity-80 items-center mx-3'>
           <p className='py-3 flex-1'>Created Monday., oct 25th 2021</p>
-          <TrashIcon onClick={() => handleDeleteTask(selectedTask)} className='w-4 h-4 cursor-pointer'/>
+          <form onSubmit={() => handleDeleteTask(selectedTask)}>
+            <button type='submit'><TrashIcon className='w-4 h-4 cursor-pointer'/></button>
+          </form>
         </div>
       </div>
     </div>
