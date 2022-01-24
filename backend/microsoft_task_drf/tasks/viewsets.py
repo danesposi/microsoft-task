@@ -18,3 +18,5 @@ class TaskViewSet(ModelViewSet):
 class StepViewSet(ModelViewSet):
     queryset = models.Step.objects.all()
     serializer_class = serializers.StepSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['task']
