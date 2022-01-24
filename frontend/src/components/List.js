@@ -8,12 +8,12 @@ import { selectList } from '../store'
 const List = ({props}) => {
     const dispatch = useDispatch()
 
-    const handleClick = (id, title) => {
-        dispatch(selectList(id, title))
+    const handleClick = (list) => {
+        dispatch(selectList(list))
     }
 
     return (
-        <div onClick={() => handleClick(props.id, props.title)} className='flex items-center justify-between h-12 hover:bg-gray-300/40 rounded-sm'>
+        <div onClick={() => handleClick(props)} className='flex items-center justify-between h-12 hover:bg-gray-300/40 rounded-sm'>
             <div className='flex items-center'>
                 <MenuIcon className='w-6 h-5 text-blue-900 opacity-60'/>
                 <p className='text-sm ml-2'>{props.title}</p>

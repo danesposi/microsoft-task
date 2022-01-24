@@ -21,9 +21,8 @@ const TaskDisplayer = () => {
     
     const globalState = useSelector(store => store)
     const selectedList = globalState?.taskListReducer?.selectedList
-    const selectedListTitle = globalState?.taskListReducer?.listTitle
     
-    const [listTitle, setListTitle] = useState(selectedListTitle)
+    const [listTitle, setListTitle] = useState(selectedList.title)
 
     const getTask = async (id) => {
         const taskItem = await getTaskByListApi(id)
@@ -36,9 +35,9 @@ const TaskDisplayer = () => {
     }
 
     useEffect(() => {
-        getTask(selectedList)
-        setListTitle(selectedListTitle)
-    }, [selectedList])
+        getTask(selectedList.id)
+        setListTitle(selectedList.title)
+    }, [selectedList.id])
 
 
     const handleSubmit = (evt) => {
@@ -48,7 +47,7 @@ const TaskDisplayer = () => {
             note: null,
             important: false,
             done: false,
-            list: selectedList
+            list: selectedList.id
         }
         createTask(data)
         setTaskTitle('')
@@ -70,8 +69,8 @@ const TaskDisplayer = () => {
         let data = {
             title: listTitle
         }
-        modifyListTitle(selectedList, data)
-        dispatch(selectList(selectedList, listTitle))
+        modifyListTitle(selectedList.id, data)
+        dispatch(selectList(selectedList))
     }
 
     return (
