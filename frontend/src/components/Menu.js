@@ -1,15 +1,22 @@
 import React from 'react'
 import {
     SearchIcon,
-    PlusIcon
+    PlusIcon,
+    CollectionIcon
 } from '@heroicons/react/outline'
 import List from './List'
-import { getListApi } from '../services/api'
+import { getListApi, createListApi } from '../services/api'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { refreshList } from '../store'
 
 
 const Menu = () => {
+
+    const dispatch = useDispatch()
+    const refresh = useSelector(store => store?.refreshReducer?.refreshList)
 
     const [listState, setListState] = useState()
 
@@ -18,12 +25,20 @@ const Menu = () => {
         setListState(listItems)
     }
 
+    const createList = async () => {
+        let data = {
+            title: "New title"
+        }
+        let newList = await createListApi(data)
+        dispatch(refreshList())
+    }
+
     useEffect(() => {
         getList()
-    }, [])
+    }, [refresh])
 
     return (
-        <div className='flex flex-col'>
+        <div className='relative flex flex-col'>
             {/* Miniprofile */}
             <div>
                 <div className='flex flex-row items-center mb-3 mx-3'>
@@ -53,15 +68,13 @@ const Menu = () => {
                 </div>
             </div>
             {/* New List */}
-            <div className='flex items-center justify-between h-12 hover:bg-gray-300/40 rounded-sm ml-2'>
+            <div onClick={() => createList()} className='relative cursor-pointer flex items-center justify-between h-12 hover:bg-gray-300/40 rounded-sm ml-2'>
                 <div className='flex items-center'>
                     <PlusIcon className='w-6 h-5 text-black opacity-60'/>
                     <p className='text-sm ml-2'>New list</p>
                 </div>
-                <div className='bg-gray-200 rounded-full w-4 h-4 text-xs text-center mr-2'>
-                    <p>{0}</p>
-                </div>
             </div>
+            <CollectionIcon className='absolute bottom-[0.60rem] right-0 cursor-not-allowed w-6 h-5 text-black opacity-60 mr-2'/>
         </div>
     )
 }
