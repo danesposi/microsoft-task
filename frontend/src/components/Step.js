@@ -2,29 +2,34 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { refreshStep } from '../store';
 import { deleteStepApi, completeStepApi } from '../services/api';
-
 import {
-    CheckCircleIcon,
     CheckIcon,
     PlusCircleIcon,
     XIcon
   } from '@heroicons/react/outline';
 
-const Step = ({props}) => {
+const Step = ({props, setStepState}) => {
 
-  const dispatch = useDispatch()
+  const filterDone = (step, doneStep) => {
+    let newSteps = step.map(
+      task => task.id === doneStep.id
+      ? doneStep
+      : task
+    )
+    return newSteps
+  }
 
   const completeStep = async (id, done) => {
     const data = {
       done: done
     }
     const stepItem = await completeStepApi(id, data)
-    dispatch(refreshStep())
+    setStepState(step => filterDone(step, stepItem))
   }
 
   const deleteStep = async (id) => {
     const status = await deleteStepApi(id)
-    dispatch(refreshStep())
+    setStepState(steps => steps.filter(step => step.id !== id))
   }
 
   return (

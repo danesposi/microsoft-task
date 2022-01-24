@@ -18,15 +18,12 @@ const TaskDisplayer = () => {
 
     const [taskState, setTaskState] = useState(null)
     const [taskTitle, setTaskTitle] = useState(null)
-
+    
     const globalState = useSelector(store => store)
-
     const selectedList = globalState?.taskListReducer?.selectedList
     const selectedListTitle = globalState?.taskListReducer?.listTitle
-
     const refresh = globalState?.refreshReducer?.refreshTask
-
-
+    
     const [listTitle, setListTitle] = useState(selectedListTitle)
 
     const getTask = async (id) => {
@@ -35,14 +32,14 @@ const TaskDisplayer = () => {
     }
 
     const createTask = async (data) => {
-        const status = await createTaskApi(data)
-        dispatch(refreshTask())
+        const taskItem = await createTaskApi(data)
+        setTaskState(task => [...task, taskItem])
     }
 
     useEffect(() => {
         getTask(selectedList)
         setListTitle(selectedListTitle)
-    }, [refresh, selectedList])
+    }, [selectedList, refresh])
 
 
     const handleSubmit = (evt) => {
@@ -100,7 +97,7 @@ const TaskDisplayer = () => {
                     {
                         !taskState
                         ? null
-                        : taskState.map(task => <Task props={task}/>)
+                        : taskState.map(task => <Task key={task.id} props={task} setTaskState={setTaskState}/>)
                     }
                 </div>
                 {/* Create Task */}

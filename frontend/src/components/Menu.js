@@ -8,15 +8,9 @@ import List from './List'
 import { getListApi, createListApi } from '../services/api'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
-import { refreshList } from '../store'
 
 
 const Menu = () => {
-
-    const dispatch = useDispatch()
-    const refresh = useSelector(store => store?.refreshReducer?.refreshList)
 
     const [listState, setListState] = useState()
 
@@ -30,12 +24,12 @@ const Menu = () => {
             title: "New title"
         }
         let newList = await createListApi(data)
-        dispatch(refreshList())
+        setListState(list => [...list, newList])
     }
 
     useEffect(() => {
         getList()
-    }, [refresh])
+    }, [])
 
     return (
         <div className='relative flex flex-col'>

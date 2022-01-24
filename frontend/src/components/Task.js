@@ -4,11 +4,11 @@ import {
     CheckIcon,
     StarIcon
 } from '@heroicons/react/outline'
-import { selectTask, refreshTask } from '../store';
+import { selectTask } from '../store';
 import { useDispatch } from 'react-redux';
 import { completeTaskApi } from '../services/api';
 
-const Task = ({props}) => {
+const Task = ({props, setTaskState}) => {
 
   const dispatch = useDispatch()
 
@@ -16,12 +16,21 @@ const Task = ({props}) => {
     dispatch(selectTask(id, title))
   }
 
+  const filterDone = (tasks, doneTask) => {
+    let newTasks = tasks.map(
+      task => task.id === doneTask.id
+      ? doneTask
+      : task
+    )
+    return newTasks
+  }
+
   const completeTask = async (id, done) => {
     const data = {
       done: done
     }
     const taskItem = await completeTaskApi(id, data)
-    dispatch(refreshTask())
+    setTaskState(tasks => filterDone(tasks, taskItem))
   }
 
   return (

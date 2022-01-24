@@ -38,7 +38,7 @@ export const getTaskByListApi = async (id) => {
 }
 
 export const deleteTaskApi = async (id) => {
-    const status = await (await axios.delete(TASK_URL + id + '/')).data
+    const status = await axios.delete(TASK_URL + id + '/').status
     return status
 }
 
@@ -63,6 +63,6 @@ export const completeStepApi = async (id, data) => {
 }
 
 export const deleteStepApi = async (id) => {
-    const status = await (await axios.delete(STEP_URL + id + '/')).data
+    const status = await axios.delete(STEP_URL + id + '/').status
     return status
 }

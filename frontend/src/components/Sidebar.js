@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getStepByTaskApi, createStepApi } from '../services/api';
-import { refreshStep, closeSidebar, selectTask } from '../store';
+import { refreshTask, closeSidebar } from '../store';
 import {
   XIcon,
   CheckCircleIcon,
@@ -27,17 +27,14 @@ const Sidebar = () => {
   const taskTitle = globalState?.taskListReducer?.taskTitle
   const selectedTask = globalState?.taskListReducer?.selectedTask
 
-  const refresh = globalState?.refreshReducer?.refreshStep
-
   const [stepState, setStepState] = useState(null)
-
   const [stepTitle, setStepTitle] = useState("")
 
   const dispatch = useDispatch()
 
   const createStep = async (data) => {
     const stepItem = await createStepApi(data)
-    dispatch(refreshStep())
+    setStepState(step => [...step, stepItem])
   } 
 
   const handleSubmit = async (evt) => {
@@ -52,8 +49,9 @@ const Sidebar = () => {
   }
 
   const deleteTask = async (id) => {
-    const status = await deleteTaskApi(id)
-    dispatch(refreshStep())
+    let status = await deleteTaskApi(id)
+    dispatch(refreshTask())
+    dispatch(closeSidebar())
   }
 
   const onClickClose = () => {
@@ -75,7 +73,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     getStepByTask(selectedTask)
-  }, [selectedTask, refresh])
+  }, [selectedTask])
 
   return (
     <div className={
@@ -96,7 +94,7 @@ const Sidebar = () => {
           <div className='max-h-96 overflow-auto'>
             {
               stepState
-              ? stepState.map(step => <Step key={step.id} props={step}/>)
+              ? stepState.map(step => <Step key={step.id} props={step} setStepState={setStepState}/>)
               : null
             }
             <form className='flex items-center p-2 font-semibold text-sm' onSubmit={handleSubmit}>
@@ -136,7 +134,7 @@ const Sidebar = () => {
         <textarea disabled className='cursor-not-allowed border mx-2 p-2 text-sm flex-1' placeholder='Add note'/>
         <div className='flex border-t text-sm opacity-80 items-center mx-3'>
           <p className='py-3 flex-1'>Created Monday., oct 25th 2021</p>
-          <TrashIcon onClick={() => handleDeleteTask(selectedTask)} className='w-4 h-4'/>
+          <TrashIcon onClick={() => handleDeleteTask(selectedTask)} className='w-4 h-4 cursor-pointer'/>
         </div>
       </div>
     </div>
