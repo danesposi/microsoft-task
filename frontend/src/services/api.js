@@ -17,6 +17,11 @@ export const createListApi = async (data) => {
     return taskItems
 }
 
+export const deleteListApi = async (id) => {
+    const status = await axios.delete(LIST_URL + id + '/').status
+    return status
+}
+
 export const modifyListTitleApi = async (id, data) => {
     const listItem = await (await axios.patch(LIST_URL + id + '/', data)).data
     return listItem 

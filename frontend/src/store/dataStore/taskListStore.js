@@ -1,6 +1,7 @@
 const SELECT_LIST = "SELECT_LIST"
 const SELECT_TASK = "SELECT_TASK"
 const CLOSE_SIDEBAR = "CLOSE_SIDEBAR"
+const SET_N_TASKS = "SET_N_TASKS"
 
 export const taskListInitialState = {
     selectedList: null,
@@ -16,10 +17,11 @@ export const selectList = (list) => {
     }
 }
 
-export const selectTask = (task) => {
+export const selectTask = (task, toggle) => {
     return {
         type: SELECT_TASK,
-        payload: task
+        payload: task,
+        toggle: toggle
     }
 }
 
@@ -28,7 +30,6 @@ export const closeSidebar = () => {
         type: CLOSE_SIDEBAR
     }
 }
-
 
 export const taskListReducer = (state=taskListInitialState, action) => {
     switch(action.type) {
@@ -41,28 +42,15 @@ export const taskListReducer = (state=taskListInitialState, action) => {
             }
         
         case SELECT_TASK:
-            let toggle
-            if (!state.selectedTask) {
-                toggle = true
-            }
-            else if (state.selectedTask.id !== action.payload.id) {
-                toggle = true
-            }
-            else {
-                action.payload = null
-                toggle = false
-            }
-    
             return {
                 ...state,
                 selectedTask: action.payload,
-                toggle: toggle
+                toggle: action.toggle
             }
         
         case CLOSE_SIDEBAR:
             return {
                 ...state,
-                selectedTask: null,
                 toggle: false
             }
         

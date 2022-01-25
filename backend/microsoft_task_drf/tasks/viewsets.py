@@ -2,6 +2,7 @@ from . import models
 from . import serializers
 from rest_framework import status
 from rest_framework.response import Response
+from django.db.models import Count
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -10,8 +11,8 @@ class ListViewSet(ModelViewSet):
     serializer_class = serializers.ListSerializer
 
 
+
 class TaskViewSet(ModelViewSet):
-    print("request entered")
     queryset = models.Task.objects.all()
     serializer_class = serializers.TaskSerializer
     filter_backends = [DjangoFilterBackend]

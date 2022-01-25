@@ -7,13 +7,22 @@ import {
 import { selectTask } from '../store';
 import { useDispatch } from 'react-redux';
 import { completeTaskApi } from '../services/api';
+import { useSelector } from 'react-redux';
 
 const Task = ({props, setTaskState}) => {
+
+  const taskId = useSelector(store => store?.taskListReducer?.selectedTask?.id)
+  const toggleState = useSelector(store => store?.taskListReducer?.toggle)
 
   const dispatch = useDispatch()
 
   const handleClick = (task) => {
-    dispatch(selectTask(task))
+    if (task.id === taskId) {
+      dispatch(selectTask(task, !toggleState))
+    }
+    else {
+      dispatch(selectTask(task, true))
+    }
   }
 
   const filterDone = (tasks, doneTask) => {
@@ -30,6 +39,7 @@ const Task = ({props, setTaskState}) => {
       done: done
     }
     const taskItem = await completeTaskApi(id, data)
+    dispatch(selectTask(taskItem, toggleState))
     setTaskState(tasks => filterDone(tasks, taskItem))
   }
 

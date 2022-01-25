@@ -5,7 +5,7 @@ import {
     CollectionIcon
 } from '@heroicons/react/outline'
 import List from './List'
-import { getListApi, createListApi } from '../services/api'
+import { getListApi, createListApi, deleteListApi } from '../services/api'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
@@ -27,6 +27,11 @@ const Menu = () => {
         setListState(list => [...list, newList])
     }
 
+    const deleteList = async (id) => {
+        let status = await deleteListApi(id)
+        setListState(lists => lists.filter(list => list.id !== id))
+    }
+
     useEffect(() => {
         getList()
     }, [])
@@ -44,7 +49,7 @@ const Menu = () => {
                 </div>
             </div>
             {/* List Things */}
-            <div className='h-[100%]'>
+            <div className='h-[100%] overflow-auto'>
                 {/* Search Bar */}
                 <div className='relative mx-3 mb-5'> 
                     <input className=' pl-3 mx-1 border border-b-gray-500 shadow-sm rounded-[5px] text-sm text-justify h-8 w-[100%]' type="text" placeholder='Search' />
@@ -57,12 +62,12 @@ const Menu = () => {
                     {
                         !listState 
                         ? null
-                        : listState.map(list => <List key={list.id} props={list}/>)
+                        : listState.map(list => <List key={list.id} props={list} deleteList={deleteList}/>)
                     }
                 </div>
             </div>
             {/* New List */}
-            <div onClick={() => createList()} className='relative cursor-pointer flex items-center justify-between h-12 hover:bg-gray-300/40 rounded-sm ml-2'>
+            <div onClick={() => createList()} className='border-t cursor-pointer flex items-center justify-between h-12 hover:bg-gray-300/40 rounded-sm ml-2'>
                 <div className='flex items-center'>
                     <PlusIcon className='w-6 h-5 text-black opacity-60'/>
                     <p className='text-sm ml-2'>New list</p>

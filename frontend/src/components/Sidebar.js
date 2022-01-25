@@ -5,7 +5,6 @@ import { getStepByTaskApi, createStepApi } from '../services/api';
 import { refreshTask, closeSidebar } from '../store';
 import {
   XIcon,
-  CheckCircleIcon,
   PlusIcon,
   StarIcon,
   SunIcon,
@@ -14,7 +13,9 @@ import {
   ClipboardCheckIcon,
   UserAddIcon,
   PaperClipIcon,
-  TrashIcon
+  TrashIcon,
+  CheckCircleIcon,
+  CheckIcon
 } from '@heroicons/react/outline';
 import { deleteTaskApi } from '../services/api';
 import Step from './Step';
@@ -74,7 +75,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     getStepByTask(selectedTaskid)
-  }, [selectedTaskid])
+  }, [selectedTask])
 
   return (
     <div className={
@@ -88,8 +89,16 @@ const Sidebar = () => {
         </div>
         <div className='border mx-2 bg-white'>
           <div className='flex items-center p-2'>
-            <CheckCircleIcon className='w-5 h-5 mr-3'/>
-            <h1 className='text-lg font-semibold flex-1'>{selectedTaskTitle}</h1>
+            {
+              selectedTask?.done
+              ? <CheckIcon className='w-5 h-5 mr-3'/>
+              : <CheckCircleIcon className='w-5 h-5 mr-3'/>
+            }
+            {
+              selectedTask?.done
+              ? <h1 className='line-through text-lg font-semibold flex-1'>{selectedTaskTitle}</h1>
+              : <h1 className='text-lg font-semibold flex-1'>{selectedTaskTitle}</h1>
+            }
             <StarIcon className='h-5 w-5 text-zinc-500'/>
           </div>
           <div className='max-h-96 overflow-auto'>
