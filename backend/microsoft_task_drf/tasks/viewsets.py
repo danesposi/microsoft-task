@@ -11,6 +11,7 @@ class ListViewSet(ModelViewSet):
 
 
 class TaskViewSet(ModelViewSet):
+    print("request entered")
     queryset = models.Task.objects.all()
     serializer_class = serializers.TaskSerializer
     filter_backends = [DjangoFilterBackend]

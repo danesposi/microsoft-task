@@ -7,8 +7,7 @@ import Task from './Task'
 import {
     UserAddIcon,
     DotsHorizontalIcon,
-    PlusIcon,
-    MenuIcon
+    PlusIcon
 } from '@heroicons/react/outline'
 
 
@@ -38,8 +37,8 @@ const TaskDisplayer = () => {
     }
 
     useEffect(() => {
-        getTask(selectedListId)
         setListTitle(selectedListTitle)
+        getTask(selectedListId)
     }, [selectedListId])
 
 
@@ -71,10 +70,11 @@ const TaskDisplayer = () => {
 
     const handleSubmitListTitle = (evt) => {
         let data = {
-            title: listTitle
+            title: listTitle,
+            id: selectedListId
         }
+        dispatch(selectList(data))
         modifyListTitle(selectedListId, data)
-        dispatch(selectList(selectedList))
     }
 
     return (
