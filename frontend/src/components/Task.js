@@ -12,8 +12,8 @@ const Task = ({props, setTaskState}) => {
 
   const dispatch = useDispatch()
 
-  const handleClick = (id, title) => {
-    dispatch(selectTask(id, title))
+  const handleClick = (task) => {
+    dispatch(selectTask(task))
   }
 
   const filterDone = (tasks, doneTask) => {
@@ -35,7 +35,7 @@ const Task = ({props, setTaskState}) => {
 
   return (
     <div className='relative bg-slate-200 hover:bg-slate-100 rounded-md'>
-      <div onClick={() => handleClick(props.id, props.title)} className=' rounded-md'>
+      <div onClick={() => handleClick(props)} className=' rounded-md'>
           <div className='flex items-center mx-5'>
               <p className={
                 props.done

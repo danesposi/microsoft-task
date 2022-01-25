@@ -24,8 +24,10 @@ const Sidebar = () => {
   const globalState = useSelector(state => state)
 
   const toggle = globalState?.taskListReducer?.toggle
-  const taskTitle = globalState?.taskListReducer?.taskTitle
   const selectedTask = globalState?.taskListReducer?.selectedTask
+
+  const selectedTaskid = selectedTask?.id
+  const selectedTaskTitle = selectedTask?.title
 
   const [stepState, setStepState] = useState(null)
   const [stepTitle, setStepTitle] = useState("")
@@ -41,7 +43,7 @@ const Sidebar = () => {
     evt.preventDefault()
     const data = {
       title: stepTitle,
-      task: selectedTask,
+      task: selectedTaskid,
       done: false
     }
     createStep(data)
@@ -71,8 +73,8 @@ const Sidebar = () => {
   }
 
   useEffect(() => {
-    getStepByTask(selectedTask)
-  }, [selectedTask])
+    getStepByTask(selectedTaskid)
+  }, [selectedTaskid])
 
   return (
     <div className={
@@ -87,7 +89,7 @@ const Sidebar = () => {
         <div className='border mx-2 bg-white'>
           <div className='flex items-center p-2'>
             <CheckCircleIcon className='w-5 h-5 mr-3'/>
-            <h1 className='text-lg font-semibold flex-1'>{taskTitle}</h1>
+            <h1 className='text-lg font-semibold flex-1'>{selectedTaskTitle}</h1>
             <StarIcon className='h-5 w-5 text-zinc-500'/>
           </div>
           <div className='max-h-96 overflow-auto'>
@@ -133,7 +135,7 @@ const Sidebar = () => {
         <textarea disabled className='cursor-not-allowed border mx-2 p-2 text-sm flex-1' placeholder='Add note'/>
         <div className='flex border-t text-sm opacity-80 items-center mx-3'>
           <p className='py-3 flex-1'>Created Monday., oct 25th 2021</p>
-          <form onSubmit={() => handleDeleteTask(selectedTask)}>
+          <form onSubmit={() => handleDeleteTask(selectedTaskid)}>
             <button type='submit'><TrashIcon className='w-4 h-4 cursor-pointer'/></button>
           </form>
         </div>

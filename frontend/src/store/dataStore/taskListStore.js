@@ -42,12 +42,15 @@ export const taskListReducer = (state=taskListInitialState, action) => {
         
         case SELECT_TASK:
             let toggle
-            if (state.selectedTask.id !== action.payload.id) {
+            if (!state.selectedTask) {
+                toggle = true
+            }
+            else if (state.selectedTask.id !== action.payload.id) {
                 toggle = true
             }
             else {
-                toggle = false
                 action.payload = null
+                toggle = false
             }
     
             return {
