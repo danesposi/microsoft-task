@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-export const LIST_URL = "http://127.0.0.1:8000/api/v1/list/"
-export const TASK_URL = "http://127.0.0.1:8000/api/v1/task/"
-export const STEP_URL = "http://127.0.0.1:8000/api/v1/step/"
-export const TASK_BY_LIST_URL = "http://127.0.0.1:8000/api/v1/task/?list="
-export const STEP_BY_TASK_URL = "http://127.0.0.1:8000/api/v1/step/?task="
+export const LIST_URL = "http://backend:8000/api/v1/list/"
+export const TASK_URL = "http://backend:8000/api/v1/task/"
+export const STEP_URL = "http://backend:8000/api/v1/step/"
+export const TASK_BY_LIST_URL = "http://backend:8000/api/v1/task/?list="
+export const STEP_BY_TASK_URL = "http://backend:8000/api/v1/step/?task="
 
 
 export const getListApi = async () => {

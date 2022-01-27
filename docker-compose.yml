@@ -1,0 +1,28 @@
+version: '3'
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports: 
+      - "8000:8000"
+    networks:
+      - microsfot-task-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - microsfot-task-network
+    environment:
+      - 'HOSTNAME:backend'
+    depends_on:
+      - backend
+
+networks:
+  microsfot-task-network:
+    driver: bridge
