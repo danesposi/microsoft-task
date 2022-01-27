@@ -11,7 +11,6 @@ class ListViewSet(ModelViewSet):
     serializer_class = serializers.ListSerializer
 
 
-
 class TaskViewSet(ModelViewSet):
     queryset = models.Task.objects.all()
     serializer_class = serializers.TaskSerializer

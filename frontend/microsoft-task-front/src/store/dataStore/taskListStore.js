@@ -1,7 +1,6 @@
 const SELECT_LIST = "SELECT_LIST"
 const SELECT_TASK = "SELECT_TASK"
 const CLOSE_SIDEBAR = "CLOSE_SIDEBAR"
-const SET_N_TASKS = "SET_N_TASKS"
 
 export const taskListInitialState = {
     selectedList: null,

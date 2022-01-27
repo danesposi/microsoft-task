@@ -2,7 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getStepByTaskApi, createStepApi, modifyTaskTitleApi } from '../services/api';
-import { closeSidebar, refreshList, selectTask } from '../store';
+import { closeSidebar, selectTask } from '../store';
+import { deleteTaskApi } from '../services/api';
+import Step from './Step';
 import {
   XIcon,
   PlusIcon,
@@ -16,45 +18,30 @@ import {
   CheckCircleIcon,
   CheckIcon
 } from '@heroicons/react/outline';
-import { deleteTaskApi } from '../services/api';
-import Step from './Step';
 
 const Sidebar = () => {
 
+  const dispatch = useDispatch()
   const globalState = useSelector(state => state)
+  const toggle = globalState?.toggle
 
-  const toggle = globalState?.taskListReducer?.toggle
-
-  const selectedTask = globalState?.taskListReducer?.selectedTask
-  const selectedTaskid = selectedTask?.id
-  const selectedTaskTitle = selectedTask?.title
-
+  // STEP FUNCTIONS, STATE & HANDLERS
 
   const [stepState, setStepState] = useState(null)
   const [stepTitle, setStepTitle] = useState("")
-  const [taskTitle, setTaskTitle] = useState(selectedTaskTitle)
 
-  
-  const dispatch = useDispatch()
 
-  const modifyTaskTitle = async (id, data) => {
-    let taskItem = await modifyTaskTitleApi(id, data)
-    dispatch(selectTask(taskItem, true))
-  }
-  
-  const handleTaskTitleSubmit = () => {
-    let data = {
-      title: taskTitle
-    }
-    modifyTaskTitle(selectedTaskid, data)
+  const getStepByTask = async (id) => {
+    const step = await getStepByTaskApi(id)
+    setStepState(step)
   }
 
   const createStep = async (data) => {
     const stepItem = await createStepApi(data)
     setStepState(step => [...step, stepItem])
   } 
-
-  const handleSubmit = async (evt) => {
+  
+  const handleSubmitStep = async (evt) => {
     evt.preventDefault()
     const data = {
       title: stepTitle,
@@ -65,26 +52,35 @@ const Sidebar = () => {
     setStepTitle("")
   }
 
-  const deleteTask = async (id) => {
-    await deleteTaskApi(id)
-    dispatch(closeSidebar())
+  // TASK FUNCTIONS, STATE & HANDLERS
+
+  const selectedTask = globalState?.selectedTask
+  const selectedTaskid = selectedTask?.id
+  const selectedTaskTitle = selectedTask?.title
+
+  const [taskTitle, setTaskTitle] = useState(selectedTaskTitle)
+  
+    const deleteTask = async (id) => {
+      await deleteTaskApi(id)
+      dispatch(closeSidebar())
+    }
+  
+  const modifyTaskTitle = async (id, data) => {
+    let taskItem = await modifyTaskTitleApi(id, data)
+    dispatch(selectTask(taskItem, true))
   }
+  
+  const handleSubmitTaskTitle = () => {
+    let data = {
+      title: taskTitle
+    }
+    modifyTaskTitle(selectedTaskid, data)
+  }
+
+  // OTHERS...
 
   const onClickClose = () => {
     dispatch(closeSidebar())
-  }
-
-  const handleDeleteTask = (id) => {
-    deleteTask(id)
-  }
-
-  const getStepByTask = async (id) => {
-    const step = await getStepByTaskApi(id)
-    setStepState(step)
-  }
-
-  const handleStepInput = (evt) => {
-    setStepTitle(evt.target.value)
   }
 
   useEffect(() => {
@@ -109,11 +105,11 @@ const Sidebar = () => {
               ? <CheckIcon className='w-5 h-5 mr-3'/>
               : <CheckCircleIcon className='w-5 h-5 mr-3'/>
             }
-            <div>
+            <div className='active:scale-[0.99] transition-all ease-out duration-100'>
               {
                 selectedTask?.done
-                ? <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleTaskTitleSubmit} className=' cursor-default line-through text-lg font-semibold flex-1'></input>
-                : <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleTaskTitleSubmit} className=' cursor-default text-lg font-semibold flex-1'></input>
+                ? <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleSubmitTaskTitle} className=' cursor-default line-through text-lg font-semibold flex-1'></input>
+                : <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleSubmitTaskTitle} className=' cursor-default text-lg font-semibold flex-1'></input>
               }
             </div>
           </div>
@@ -123,9 +119,9 @@ const Sidebar = () => {
               ? stepState.map(step => <Step key={step.id} props={step} setStepState={setStepState}/>)
               : null
             }
-            <form className='flex items-center p-2 font-semibold text-sm' onSubmit={handleSubmit}>
+            <form className='flex items-center p-2 font-semibold text-sm' onSubmit={handleSubmitStep}>
               <PlusIcon className='w-4 h-4 mr-[1.03rem] text-blue-600'/>
-              <input required value={stepTitle} onChange={handleStepInput} placeholder='Add Step' className='placeholder-opacity-100 w-[100%] focus:outline-none placeholder-blue-600'/>
+              <input required value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} placeholder='Add Step' className='placeholder-opacity-100 w-[100%] focus:outline-none placeholder-blue-600'/>
             </form>
           </div>
         </div>
@@ -160,7 +156,7 @@ const Sidebar = () => {
         <textarea disabled className='cursor-not-allowed border mx-2 p-2 text-sm flex-1' placeholder='Add note'/>
         <div className='flex border-t text-sm opacity-80 items-center mx-3'>
           <p className='py-3 flex-1'>Created Monday., oct 25th 2021</p>
-          <form onSubmit={() => handleDeleteTask(selectedTaskid)}>
+          <form onSubmit={() => deleteTask(selectedTaskid)}>
             <button type='submit'><TrashIcon className='w-4 h-4 cursor-pointer'/></button>
           </form>
         </div>

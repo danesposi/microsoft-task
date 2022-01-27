@@ -13,9 +13,9 @@ import { useSelector } from 'react-redux'
 
 const Menu = () => {
 
-    const [listState, setListState] = useState()
+    const [listState, setListState] = useState([])
     const [searchState, setSearchState] = useState('')
-    const selectedListTitle = useSelector(store => store?.taskListReducer?.selectedList?.title)
+    const selectedListTitle = useSelector(store => store?.selectedList?.title)
     const pattern = new RegExp(searchState, 'i')
 
     const filterList = (list) => {
@@ -68,7 +68,7 @@ const Menu = () => {
             <div className='h-[100%] overflow-auto'>
                 {/* Search Bar */}
                 <div className='relative mx-3 mb-5'> 
-                    <input value={searchState} onChange={(evt) => {setSearchState(evt.target.value)}} className=' pl-3 mx-1 border border-b-gray-500 shadow-sm rounded-[5px] text-sm text-justify h-8 w-[100%]' type="text" placeholder='Search' />
+                    <input value={searchState} onChange={(evt) => {setSearchState(evt.target.value)}} className='focus:ring-0  focus:border-b-2 border-b-2 pl-3 mx-1 border-gray-300 border-b-gray-400 shadow-sm rounded-[5px] text-sm text-justify h-8 w-[100%]' type="text" placeholder='Search' />
                     <div className='absolute h-4 w-4 right-2 top-2 pointer-events-none'>
                         <SearchIcon className='w-[3.5] h-[3.5] text-gray-500'/>
                     </div>
@@ -76,7 +76,7 @@ const Menu = () => {
                 {/* Lists */}
                 <div className='flex flex-col ml-2 space-y-2'>
                     {
-                        !listState 
+                        ! listState 
                         ? null
                         : listState.map(list => filterList(list))
                     }
