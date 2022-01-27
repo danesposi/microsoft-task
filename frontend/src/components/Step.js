@@ -1,5 +1,5 @@
-import React from 'react';
-import { deleteStepApi, completeStepApi } from '../services/api';
+import {React, useState} from 'react';
+import { deleteStepApi, completeStepApi, modifyStepTitleApi } from '../services/api';
 import {
     CheckIcon,
     PlusCircleIcon,
@@ -7,6 +7,15 @@ import {
   } from '@heroicons/react/outline';
 
 const Step = ({props, setStepState}) => {
+
+  const [stepTitle, setStepTitle] = useState(props.title)
+
+  const handleStepTitleSubmit = () => {
+    let data = {
+      title:stepTitle
+    }
+    modifyStepTitleApi(props.id, data)
+  }
 
   const filterDone = (step, doneStep) => {
     let newSteps = step.map(
@@ -39,8 +48,8 @@ const Step = ({props, setStepState}) => {
         }
         {
           props.done
-          ? <p className='flex-1 line-through'>{props.title}</p>
-          : <p className='flex-1'>{props.title}</p>
+          ? <input className='flex-1 line-through cursor-default' value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} onBlur={() => handleStepTitleSubmit()}></input>
+          : <input className='flex-1 cursor-default' value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} onBlur={() => handleStepTitleSubmit()}></input>
         }
         <XIcon onClick={() => deleteStep(props.id)} className='cursor-pointer h-4 w-4'/>
     </div>

@@ -12,17 +12,21 @@ import { useSelector } from 'react-redux';
 const Task = ({props, setTaskState}) => {
 
   const taskId = useSelector(store => store?.taskListReducer?.selectedTask?.id)
+  
   const toggleState = useSelector(store => store?.taskListReducer?.toggle)
+
 
   const dispatch = useDispatch()
 
   const handleClick = (task) => {
+
     if (task.id === taskId) {
       dispatch(selectTask(task, !toggleState))
     }
     else {
       dispatch(selectTask(task, true))
     }
+
   }
 
   const filterDone = (tasks, doneTask) => {

@@ -42,6 +42,11 @@ export const getTaskByListApi = async (id) => {
     return taskDetailItem
 }
 
+export const modifyTaskTitleApi = async (id, data) => {
+    const taskItem = await (await axios.patch(TASK_URL + id + '/', data)).data
+    return taskItem
+}
+
 export const deleteTaskApi = async (id) => {
     const status = await axios.delete(TASK_URL + id + '/').status
     return status
@@ -59,6 +64,11 @@ export const getStepByTaskApi = async (id) => {
 
 export const createStepApi = async (data) => {
     const stepItem = await (await axios.post(STEP_URL, data)).data
+    return stepItem
+}
+
+export const modifyStepTitleApi = async (id, data) => {
+    const stepItem = await (await axios.patch(STEP_URL + id + '/', data)).data
     return stepItem
 }
 

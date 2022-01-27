@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getTaskByListApi, createTaskApi, modifyListTitleApi } from '../services/api'
-import { refreshTask, refreshList, selectList } from '../store'
+import { selectList } from '../store'
 import Task from './Task'
 import {
     UserAddIcon,
@@ -20,9 +20,12 @@ const TaskDisplayer = () => {
     
     const globalState = useSelector(store => store)
     const selectedList = globalState?.taskListReducer?.selectedList
+    const selectedTaskTitle = globalState?.taskListReducer?.selectedTask?.title
 
     const selectedListTitle = selectedList?.title
     const selectedListId = selectedList?.id
+
+    const refreshList = globalState?.refreshReducer?.refreshList
     
     const [listTitle, setListTitle] = useState(selectedListTitle)
 
@@ -39,7 +42,7 @@ const TaskDisplayer = () => {
     useEffect(() => {
         setListTitle(selectedListTitle)
         getTask(selectedListId)
-    }, [selectedListId])
+    }, [selectedListId, selectedTaskTitle])
 
 
     const handleSubmit = (evt) => {
@@ -59,33 +62,24 @@ const TaskDisplayer = () => {
         setTaskTitle(evt.target.value)
     }
 
-    const handleListTitleInput = (evt) => {
-        setListTitle(evt.target.value)
-    }
-
     const modifyListTitle = async (id, data) => {
         const listItem = await modifyListTitleApi(id, data)
-        setListTitle(listItem.title)
+        dispatch(selectList(listItem))
     }
 
-    const handleSubmitListTitle = (evt) => {
+    const handleListTitleSubmit = () => {
         let data = {
             title: listTitle,
             id: selectedListId
         }
-        dispatch(selectList(data))
         modifyListTitle(selectedListId, data)
     }
 
     return (
         <div className='flex h-[100%] w-[100%]'>
             <div className='flex flex-col mx-16 my-10 w-[100%]'>
-                {/* Header */}
-                {/* <MenuIcon onClick={handleToggleMenu} className='h-6 w-6 text-white xl:hidden md:hidden'/> */}
                 <div className='flex items-center mb-5'>
-                    <form onSubmit={handleSubmitListTitle} className='flex flex-1'>
-                        <input onChange={handleListTitleInput} value={listTitle} className='flex-1 text-2xl text-zinc-50 font-semibold placeholder-black focus:outline-none focus:text-black focus:bg-slate-50 bg-inherit'></input>
-                    </form>
+                    <input onChange={(evt) => setListTitle(evt.target.value)} onBlur={handleListTitleSubmit} value={listTitle} className='flex-1 text-2xl text-zinc-50 font-semibold placeholder-black focus:outline-none focus:text-black focus:bg-slate-50 bg-inherit cursor-default focus:cursor-text'></input>
                     <div className='flex items-center'>
                         <UserAddIcon className='bg-zinc-50/60 w-5 h-5 rounded-sm ml-3 mr-5 cursor-not-allowed'/>
                         <DotsHorizontalIcon className='text-zinc-50 w-5 h-5 cursor-not-allowed'/>

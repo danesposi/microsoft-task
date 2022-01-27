@@ -8,11 +8,27 @@ import List from './List'
 import { getListApi, createListApi, deleteListApi } from '../services/api'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 
 const Menu = () => {
 
     const [listState, setListState] = useState()
+    const [searchState, setSearchState] = useState('')
+    const selectedListTitle = useSelector(store => store?.taskListReducer?.selectedList?.title)
+    const pattern = new RegExp(searchState, 'i')
+
+    const filterList = (list) => {
+        if (searchState) {
+            let match = pattern.test(list.title)
+            if (match) {
+                return <List key={list.id} props={list} deleteList={deleteList}/>
+            }
+        }
+        else {
+            return <List key={list.id} props={list} deleteList={deleteList}/>
+        }
+    }
 
     const getList = async () => {
         const listItems = await getListApi()
@@ -21,27 +37,27 @@ const Menu = () => {
 
     const createList = async () => {
         let data = {
-            title: "New title"
+            title: "New list"
         }
         let newList = await createListApi(data)
         setListState(list => [...list, newList])
     }
 
     const deleteList = async (id) => {
-        let status = await deleteListApi(id)
+        await deleteListApi(id)
         setListState(lists => lists.filter(list => list.id !== id))
     }
 
     useEffect(() => {
         getList()
-    }, [])
+    }, [selectedListTitle])
 
     return (
         <div className='relative flex flex-col'>
             {/* Miniprofile */}
             <div>
                 <div className='flex flex-row items-center mb-3 mx-3'>
-                    <img className='w-12 h-12 rounded-full' src={'https://images.media-allrecipes.com/userphotos/600x600/8531051.jpg'} alt='random picture'/>
+                    <img className='w-12 h-12 rounded-full' src={'https://images.media-allrecipes.com/userphotos/600x600/8531051.jpg'} alt='user'/>
                     <div className='truncate ml-3'>
                         <span className='text-sm font-semibold'>Daniel Alejandro Espósito Briceño</span>
                         <p className='text-xs text-gray-700'>Active</p>
@@ -52,7 +68,7 @@ const Menu = () => {
             <div className='h-[100%] overflow-auto'>
                 {/* Search Bar */}
                 <div className='relative mx-3 mb-5'> 
-                    <input className=' pl-3 mx-1 border border-b-gray-500 shadow-sm rounded-[5px] text-sm text-justify h-8 w-[100%]' type="text" placeholder='Search' />
+                    <input value={searchState} onChange={(evt) => {setSearchState(evt.target.value)}} className=' pl-3 mx-1 border border-b-gray-500 shadow-sm rounded-[5px] text-sm text-justify h-8 w-[100%]' type="text" placeholder='Search' />
                     <div className='absolute h-4 w-4 right-2 top-2 pointer-events-none'>
                         <SearchIcon className='w-[3.5] h-[3.5] text-gray-500'/>
                     </div>
@@ -62,7 +78,7 @@ const Menu = () => {
                     {
                         !listState 
                         ? null
-                        : listState.map(list => <List key={list.id} props={list} deleteList={deleteList}/>)
+                        : listState.map(list => filterList(list))
                     }
                 </div>
             </div>

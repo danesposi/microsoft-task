@@ -1,12 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getStepByTaskApi, createStepApi } from '../services/api';
-import { refreshTask, closeSidebar } from '../store';
+import { getStepByTaskApi, createStepApi, modifyTaskTitleApi } from '../services/api';
+import { closeSidebar, refreshList, selectTask } from '../store';
 import {
   XIcon,
   PlusIcon,
-  StarIcon,
   SunIcon,
   ClockIcon,
   CalendarIcon,
@@ -25,15 +24,30 @@ const Sidebar = () => {
   const globalState = useSelector(state => state)
 
   const toggle = globalState?.taskListReducer?.toggle
-  const selectedTask = globalState?.taskListReducer?.selectedTask
 
+  const selectedTask = globalState?.taskListReducer?.selectedTask
   const selectedTaskid = selectedTask?.id
   const selectedTaskTitle = selectedTask?.title
 
+
   const [stepState, setStepState] = useState(null)
   const [stepTitle, setStepTitle] = useState("")
+  const [taskTitle, setTaskTitle] = useState(selectedTaskTitle)
 
+  
   const dispatch = useDispatch()
+
+  const modifyTaskTitle = async (id, data) => {
+    let taskItem = await modifyTaskTitleApi(id, data)
+    dispatch(selectTask(taskItem, true))
+  }
+  
+  const handleTaskTitleSubmit = () => {
+    let data = {
+      title: taskTitle
+    }
+    modifyTaskTitle(selectedTaskid, data)
+  }
 
   const createStep = async (data) => {
     const stepItem = await createStepApi(data)
@@ -52,7 +66,7 @@ const Sidebar = () => {
   }
 
   const deleteTask = async (id) => {
-    let status = await deleteTaskApi(id)
+    await deleteTaskApi(id)
     dispatch(closeSidebar())
   }
 
@@ -75,6 +89,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     getStepByTask(selectedTaskid)
+    setTaskTitle(selectedTaskTitle)
   }, [selectedTask])
 
   return (
@@ -94,12 +109,13 @@ const Sidebar = () => {
               ? <CheckIcon className='w-5 h-5 mr-3'/>
               : <CheckCircleIcon className='w-5 h-5 mr-3'/>
             }
-            {
-              selectedTask?.done
-              ? <h1 className='line-through text-lg font-semibold flex-1'>{selectedTaskTitle}</h1>
-              : <h1 className='text-lg font-semibold flex-1'>{selectedTaskTitle}</h1>
-            }
-            <StarIcon className='h-5 w-5 text-zinc-500'/>
+            <div>
+              {
+                selectedTask?.done
+                ? <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleTaskTitleSubmit} className=' cursor-default line-through text-lg font-semibold flex-1'></input>
+                : <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleTaskTitleSubmit} className=' cursor-default text-lg font-semibold flex-1'></input>
+              }
+            </div>
           </div>
           <div className='max-h-96 overflow-auto'>
             {
