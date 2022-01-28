@@ -42,7 +42,7 @@ export const getTaskByListApi = async (id) => {
     return taskDetailItem
 }
 
-export const modifyTaskTitleApi = async (id, data) => {
+export const modifyTaskFieldApi = async (id, data) => {
     const taskItem = await (await axios.patch(TASK_URL + id + '/', data)).data
     return taskItem
 }

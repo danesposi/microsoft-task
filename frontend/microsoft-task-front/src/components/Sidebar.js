@@ -1,10 +1,9 @@
 import React from 'react';
 import Step from './Step';
-import { deleteTaskApi } from '../services/api';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { closeSidebar, selectList, selectTask } from '../store';
-import { getStepByTaskApi, createStepApi, modifyTaskTitleApi } from '../services/api';
+import { closeSidebar, selectTask } from '../store';
+import { getStepByTaskApi, createStepApi, modifyTaskFieldApi, deleteTaskApi } from '../services/api';
 import {
   XIcon,
   PlusIcon,
@@ -67,8 +66,8 @@ const Sidebar = () => {
       dispatch(closeSidebar())
     }
   
-  const modifyTaskTitle = async (id, data) => {
-    let taskItem = await modifyTaskTitleApi(id, data)
+  const modifyTaskField = async (id, data) => {
+    let taskItem = await modifyTaskFieldApi(id, data)
     dispatch(selectTask(taskItem, true))
   }
   
@@ -76,14 +75,14 @@ const Sidebar = () => {
     let data = {
       title: taskTitle
     }
-    modifyTaskTitle(selectedTaskId, data)
+    modifyTaskField(selectedTaskId, data)
   }
 
   const handleSubmitTaskNote = () => {
     let data = {
       note: taskNote
     }
-    modifyTaskTitle(selectedTaskId, data)
+    modifyTaskField(selectedTaskId, data)
   }
 
   // OTHERS...
@@ -102,7 +101,7 @@ const Sidebar = () => {
     <div className={
       !toggle 
       ? 'hidden' 
-      : 'hidden md:inline-flex md:h-[100%] xl:inline-flex xl:h-[100%]'
+      : 'hidden md:inline-flex md:h-[100%] xl:flex xl:h-[100%] xl:flex-col xl:justify-between'
     }>
       <div className='flex space-y-3 flex-col w-[19rem] right-0 md:hidden xl:inline-flex xl:w-[19rem]'>
         <div className='mt-3 mr-3 text-zinc-500'>
@@ -163,14 +162,14 @@ const Sidebar = () => {
           <PaperClipIcon className='w-4 h-4 mr-[1.03rem]'/>
           <p>Attach</p>
         </div>
-        <textarea value={taskNote} onChange={(evt) => setTaskNote(evt.target.value)} onBlur={handleSubmitTaskNote} className='focus:outline-none focus:border-1 focus:ring-transparent border mx-2 p-2 text-sm flex-1' placeholder='Add note'/>
+        <textarea value={taskNote} onChange={(evt) => setTaskNote(evt.target.value)} onBlur={handleSubmitTaskNote} className='focus:outline-none focus:border-1 focus:ring-transparent border mx-2 p-2 text-sm' placeholder='Add note'/>
+      </div>
         <div className='flex border-t text-sm opacity-80 items-center mx-3'>
           <p className='py-3 flex-1'>Created Monday., oct 25th 2021</p>
           <form onSubmit={() => deleteTask(selectedTaskId)}>
             <button type='submit'><TrashIcon className='w-4 h-4 cursor-pointer'/></button>
           </form>
         </div>
-      </div>
     </div>
   )
 };
