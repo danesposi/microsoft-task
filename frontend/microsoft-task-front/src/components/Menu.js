@@ -1,14 +1,14 @@
 import React from 'react'
+import List from './List'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { getListApi, createListApi, deleteListApi } from '../services/api'
 import {
     SearchIcon,
     PlusIcon,
     CollectionIcon
 } from '@heroicons/react/outline'
-import List from './List'
-import { getListApi, createListApi, deleteListApi } from '../services/api'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
 
 
 const Menu = () => {

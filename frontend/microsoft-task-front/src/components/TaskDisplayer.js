@@ -1,9 +1,9 @@
 import React from 'react'
+import Task from './Task'
+import { selectList } from '../store'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getTaskByListApi, createTaskApi, modifyListTitleApi } from '../services/api'
-import { selectList } from '../store'
-import Task from './Task'
 import {
     UserAddIcon,
     DotsHorizontalIcon,

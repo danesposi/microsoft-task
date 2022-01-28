@@ -9,7 +9,7 @@ class List(models.Model):
 
 class Task(models.Model):
     title = models.CharField(max_length=300, null=False, default="Task title")
-    note = models.CharField(max_length=300, null=True)
+    note = models.CharField(max_length=300, null=False, default="")
     important = models.BooleanField(default=False)
     done = models.BooleanField(default=False)
     list = models.ForeignKey(List, on_delete=models.CASCADE)

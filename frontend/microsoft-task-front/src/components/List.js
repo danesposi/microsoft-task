@@ -2,9 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { selectList } from '../store'
 import {
-    TrashIcon
-} from '@heroicons/react/outline'
-import {
+    TrashIcon,
     MenuIcon
 } from '@heroicons/react/outline'
 

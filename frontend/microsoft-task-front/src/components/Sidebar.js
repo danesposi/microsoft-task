@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { getStepByTaskApi, createStepApi, modifyTaskTitleApi } from '../services/api';
-import { closeSidebar, selectTask } from '../store';
-import { deleteTaskApi } from '../services/api';
 import Step from './Step';
+import { deleteTaskApi } from '../services/api';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { closeSidebar, selectList, selectTask } from '../store';
+import { getStepByTaskApi, createStepApi, modifyTaskTitleApi } from '../services/api';
 import {
   XIcon,
   PlusIcon,
@@ -45,7 +45,7 @@ const Sidebar = () => {
     evt.preventDefault()
     const data = {
       title: stepTitle,
-      task: selectedTaskid,
+      task: selectedTaskId,
       done: false
     }
     createStep(data)
@@ -55,10 +55,12 @@ const Sidebar = () => {
   // TASK FUNCTIONS, STATE & HANDLERS
 
   const selectedTask = globalState?.selectedTask
-  const selectedTaskid = selectedTask?.id
+  const selectedTaskId = selectedTask?.id
   const selectedTaskTitle = selectedTask?.title
+  const selectedTaskNote = selectedTask?.note
 
   const [taskTitle, setTaskTitle] = useState(selectedTaskTitle)
+  const [taskNote, setTaskNote] = useState(selectedTaskNote)
   
     const deleteTask = async (id) => {
       await deleteTaskApi(id)
@@ -74,7 +76,14 @@ const Sidebar = () => {
     let data = {
       title: taskTitle
     }
-    modifyTaskTitle(selectedTaskid, data)
+    modifyTaskTitle(selectedTaskId, data)
+  }
+
+  const handleSubmitTaskNote = () => {
+    let data = {
+      note: taskNote
+    }
+    modifyTaskTitle(selectedTaskId, data)
   }
 
   // OTHERS...
@@ -84,9 +93,10 @@ const Sidebar = () => {
   }
 
   useEffect(() => {
-    getStepByTask(selectedTaskid)
+    getStepByTask(selectedTaskId)
     setTaskTitle(selectedTaskTitle)
-  }, [selectedTask])
+    setTaskNote(selectedTaskNote)
+  }, [selectedTaskId])
 
   return (
     <div className={
@@ -153,10 +163,10 @@ const Sidebar = () => {
           <PaperClipIcon className='w-4 h-4 mr-[1.03rem]'/>
           <p>Attach</p>
         </div>
-        <textarea disabled className='cursor-not-allowed border mx-2 p-2 text-sm flex-1' placeholder='Add note'/>
+        <textarea value={taskNote} onChange={(evt) => setTaskNote(evt.target.value)} onBlur={handleSubmitTaskNote} className='focus:outline-none focus:border-1 focus:ring-transparent border mx-2 p-2 text-sm flex-1' placeholder='Add note'/>
         <div className='flex border-t text-sm opacity-80 items-center mx-3'>
           <p className='py-3 flex-1'>Created Monday., oct 25th 2021</p>
-          <form onSubmit={() => deleteTask(selectedTaskid)}>
+          <form onSubmit={() => deleteTask(selectedTaskId)}>
             <button type='submit'><TrashIcon className='w-4 h-4 cursor-pointer'/></button>
           </form>
         </div>

@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { taskListReducer } from './dataStore/taskListStore';
-import { taskListInitialState } from "./dataStore/taskListStore";
+import { taskListReducer } from './taskListStore/taskListStore';
+import { taskListInitialState } from "./taskListStore/taskListStore";
 
 const persistedState = localStorage.getItem('microsoftTask') 
                        ? JSON.parse(localStorage.getItem('microsoftTask'))

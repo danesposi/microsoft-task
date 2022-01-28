@@ -1,13 +1,13 @@
 import React from 'react';
+import { selectTask } from '../store';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { completeTaskApi } from '../services/api';
 import {
     PlusCircleIcon,
     CheckIcon,
     StarIcon
 } from '@heroicons/react/outline'
-import { selectTask } from '../store';
-import { useDispatch } from 'react-redux';
-import { completeTaskApi } from '../services/api';
-import { useSelector } from 'react-redux';
 
 const Task = ({props, setTaskState}) => {
 

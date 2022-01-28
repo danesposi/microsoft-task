@@ -1,1 +1,1 @@
-export { selectList, selectTask, closeSidebar } from "./dataStore/taskListStore";
+export { selectList, selectTask, closeSidebar } from "./taskListStore/taskListStore";
