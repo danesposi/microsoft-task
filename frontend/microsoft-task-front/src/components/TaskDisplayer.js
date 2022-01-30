@@ -36,11 +36,11 @@ const TaskDisplayer = () => {
         evt.preventDefault()
         const data = {
             title: taskTitle,
-            note: null,
             important: false,
             done: false,
             list: selectedListId
         }
+        console.log(data)
         createTask(data)
         setTaskTitle('')
     }
