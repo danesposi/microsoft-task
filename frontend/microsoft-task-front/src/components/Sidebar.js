@@ -42,13 +42,15 @@ const Sidebar = () => {
   
   const handleSubmitStep = async (evt) => {
     evt.preventDefault()
-    const data = {
-      title: stepTitle,
-      task: selectedTaskId,
-      done: false
+    if (stepState.length < 12 ) {
+      const data = {
+        title: stepTitle,
+        task: selectedTaskId,
+        done: false
+      }
+      createStep(data)
+      setStepTitle("")
     }
-    createStep(data)
-    setStepTitle("")
   }
 
   // TASK FUNCTIONS, STATE & HANDLERS
@@ -101,7 +103,7 @@ const Sidebar = () => {
     <div className={
       !toggle 
       ? 'hidden' 
-      : 'hidden md:inline-flex md:h-[100%] xl:flex xl:h-[100%] xl:flex-col xl:justify-between'
+      : 'hidden md:inline-flex md:h-[100%] xl:flex xl:h-[100%] xl:flex-col xl:justify-between overflow-auto'
     }>
       <div className='flex space-y-3 flex-col w-[19rem] right-0 md:hidden xl:inline-flex xl:w-[19rem]'>
         <div className='mt-3 mr-3 text-zinc-500'>
@@ -162,7 +164,7 @@ const Sidebar = () => {
           <PaperClipIcon className='w-4 h-4 mr-[1.03rem]'/>
           <p>Attach</p>
         </div>
-        <textarea value={taskNote} onChange={(evt) => setTaskNote(evt.target.value)} onBlur={handleSubmitTaskNote} className='focus:outline-none focus:border-1 focus:ring-transparent border mx-2 p-2 text-sm' placeholder='Add note'/>
+        <textarea maxLength={200} value={taskNote} onChange={(evt) => setTaskNote(evt.target.value)} onBlur={handleSubmitTaskNote} className='focus:outline-none focus:border-1 focus:ring-transparent border mx-2 p-2 text-sm' placeholder='Add note'/>
       </div>
         <div className='flex border-t text-sm opacity-80 items-center mx-3'>
           <p className='py-3 flex-1'>Created Monday., oct 25th 2021</p>

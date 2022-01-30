@@ -34,15 +34,16 @@ const TaskDisplayer = () => {
     
     const handleSubmitTask = (evt) => {
         evt.preventDefault()
-        const data = {
-            title: taskTitle,
-            important: false,
-            done: false,
-            list: selectedListId
+        if (taskState.length < 10) {
+            const data = {
+                title: taskTitle,
+                important: false,
+                done: false,
+                list: selectedListId
+            }
+            createTask(data)
+            setTaskTitle('')
         }
-        console.log(data)
-        createTask(data)
-        setTaskTitle('')
     }
 
     // LIST FUNCTIONS, STATE & HANDLERS
@@ -92,10 +93,10 @@ const TaskDisplayer = () => {
                     }
                 </div>
                 {/* Create Task */}
-                <div className='rounded-md bg-slate-100/75'>
+                <div className='rounded-md bg-slate-100/75 mt-2'>
                     <form className='flex items-center mx-5 ' onSubmit={handleSubmitTask}>
                         <PlusIcon className='h-6 w-6 mr-3 pointer-events-none'/>
-                        <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} className='pt-4 pb-4 flex-1 bg-slate-100/5 focus:outline-none placeholder-black placeholder-opacity-100' placeholder='Add task'></input>
+                        <input maxLength={80} value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} className='pt-4 pb-4 flex-1 bg-slate-100/5 focus:outline-none placeholder-black placeholder-opacity-100' placeholder='Add task'></input>
                     </form>
                 </div>                
             </div>

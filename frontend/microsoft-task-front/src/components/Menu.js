@@ -36,11 +36,13 @@ const Menu = () => {
     }
 
     const createList = async () => {
-        let data = {
-            title: "New list"
+        if (listState.length < 12) {
+            let data = {
+                title: "New list"
+            }
+            let newList = await createListApi(data)
+            setListState(list => [...list, newList])
         }
-        let newList = await createListApi(data)
-        setListState(list => [...list, newList])
     }
 
     const deleteList = async (id) => {
