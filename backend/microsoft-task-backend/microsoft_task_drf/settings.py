@@ -27,7 +27,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://microsoft-task.vercel.app']
+CORS_ALLOWED_ORIGINS = [
+"https://microsoft-task.vercel.app"
+]
+
+ALLOWED_HOSTS = ['https://microsoft-task-api.herokuapp.com/', '127.0.0.1']
 
 
 # Application definition
@@ -48,8 +52,6 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
-
-CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
