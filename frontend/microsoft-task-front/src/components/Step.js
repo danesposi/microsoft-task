@@ -35,7 +35,7 @@ const Step = ({props, setStepState}) => {
   }
 
   const deleteStep = async (id) => {
-    const status = await deleteStepApi(id)
+    await deleteStepApi(id)
     setStepState(steps => steps.filter(step => step.id !== id))
   }
 
