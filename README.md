@@ -1,6 +1,8 @@
 # microsoft-task
 My own version of Microsoft Task :)
 
+LIVE PREVIEW: https://microsoft-task.vercel.app/
+
 Tech Stack:
 - ReactJS
 - Tailwind CSS
