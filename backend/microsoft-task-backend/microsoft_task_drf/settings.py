@@ -31,7 +31,7 @@ CORS_ALLOWED_ORIGINS = [
 "https://microsoft-task.vercel.app"
 ]
 
-ALLOWED_HOSTS = ['https://microsoft-task-api.herokuapp.com/', '127.0.0.1']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
