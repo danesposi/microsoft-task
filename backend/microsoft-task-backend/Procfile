@@ -1,4 +1,4 @@
-web: gunicorn wsgi:microsoft_task_drf
+heroku ps: scale web=1
+web: gunicorn microsoft_task_drf.wsgi
 release: python manage.py makemigrations --noinput
-
 release: python manage.py migrate --noinput
