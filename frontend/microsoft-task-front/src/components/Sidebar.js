@@ -1,6 +1,7 @@
 import React from 'react';
 import Step from './Step';
 import { ReactSortable } from 'react-sortablejs'
+import rearrange from '../services/rearrange';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeSidebar, selectTask } from '../store';
@@ -126,7 +127,7 @@ const Sidebar = () => {
             </div>
           </div>
           <div className='max-h-96 overflow-auto'>
-            <ReactSortable list={stepState} setList={setStepState} ghostClass='blue-background-class' animation={300} onEnd={() => console.log("hey")}>
+            <ReactSortable list={stepState} setList={setStepState} ghostClass='blue-background-class' animation={300} onEnd={() => rearrange(stepState, 'step')}>
               {
                 stepState
                 ? stepState.map(step => <Step key={step.id} props={step} setStepState={setStepState}/>)

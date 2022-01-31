@@ -2,6 +2,7 @@ import React from 'react'
 import Task from './Task'
 import { selectList } from '../store'
 import { ReactSortable } from 'react-sortablejs'
+import rearrange from '../services/rearrange'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getTaskByListApi, createTaskApi, modifyListTitleApi } from '../services/api'
@@ -87,7 +88,7 @@ const TaskDisplayer = () => {
 
                 {/* Tasks */}
                 <div className='flex flex-col flex-1 overflow-auto'>
-                    <ReactSortable list={taskState} setList={setTaskState} ghostClass='blue-background-class' animation={300} onEnd={() => console.log("hey")}>
+                    <ReactSortable list={taskState} setList={setTaskState} ghostClass='blue-background-class' animation={300} onEnd={() => rearrange(taskState, 'task')}>
                         {
                             !taskState
                             ? null
