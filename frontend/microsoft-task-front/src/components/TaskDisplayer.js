@@ -1,6 +1,7 @@
 import React from 'react'
 import Task from './Task'
 import { selectList } from '../store'
+import { ReactSortable } from 'react-sortablejs'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getTaskByListApi, createTaskApi, modifyListTitleApi } from '../services/api'
@@ -19,7 +20,7 @@ const TaskDisplayer = () => {
     // TASK FUNCTIONS, STATE & HANDLERS
 
     const selectedTaskTitle = globalState?.selectedTask?.title
-    const [taskState, setTaskState] = useState(null)
+    const [taskState, setTaskState] = useState([])
     const [taskTitle, setTaskTitle] = useState(null)
 
     const getTask = async (id) => {
@@ -85,12 +86,14 @@ const TaskDisplayer = () => {
                 </div>
 
                 {/* Tasks */}
-                <div className='flex flex-col space-y-1 flex-1 overflow-auto'>
-                    {
-                        !taskState
-                        ? null
-                        : taskState.map(task => <Task key={task.id} props={task} setTaskState={setTaskState}/>)
-                    }
+                <div className='flex flex-col flex-1 overflow-auto'>
+                    <ReactSortable list={taskState} setList={setTaskState} ghostClass='blue-background-class' animation={300} onEnd={() => console.log("hey")}>
+                        {
+                            !taskState
+                            ? null
+                            : taskState.map(task => <Task key={task.id} props={task} setTaskState={setTaskState}/>)
+                        }
+                    </ReactSortable>
                 </div>
                 {/* Create Task */}
                 <div className='rounded-md bg-slate-100/75 mt-2'>

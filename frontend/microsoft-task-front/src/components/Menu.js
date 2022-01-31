@@ -3,6 +3,7 @@ import List from './List'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { ReactSortable } from 'react-sortablejs'
 import { getListApi, createListApi, deleteListApi } from '../services/api'
 import {
     SearchIcon,
@@ -23,6 +24,9 @@ const Menu = () => {
             let match = pattern.test(list.title)
             if (match) {
                 return <List key={list.id} props={list} deleteList={deleteList}/>
+            }
+            else {
+                return []
             }
         }
         else {
@@ -77,11 +81,13 @@ const Menu = () => {
                 </div>
                 {/* Lists */}
                 <div className='flex flex-col ml-2 space-y-2'>
-                    {
-                        ! listState 
-                        ? null
-                        : listState.map(list => filterList(list))
-                    }
+                    <ReactSortable list={listState} setList={setListState} ghostClass='blue-background-class' animation={300} onEnd={() => console.log("hey")}>
+                        {
+                            ! listState 
+                            ? []
+                            : listState.map(list => filterList(list))
+                        }
+                    </ReactSortable>
                 </div>
             </div>
             {/* New List */}

@@ -3,6 +3,7 @@ import TaskDisplayer from './components/TaskDisplayer'
 import { Provider } from 'react-redux';
 import Sidebar from './components/Sidebar';
 import store from './store/store';
+import SortableExample from './components/SortableExample'
 
 function App() {
 

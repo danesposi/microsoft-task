@@ -1,5 +1,6 @@
 import React from 'react';
 import Step from './Step';
+import { ReactSortable } from 'react-sortablejs'
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeSidebar, selectTask } from '../store';
@@ -26,7 +27,7 @@ const Sidebar = () => {
 
   // STEP FUNCTIONS, STATE & HANDLERS
 
-  const [stepState, setStepState] = useState(null)
+  const [stepState, setStepState] = useState([])
   const [stepTitle, setStepTitle] = useState("")
 
 
@@ -125,11 +126,13 @@ const Sidebar = () => {
             </div>
           </div>
           <div className='max-h-96 overflow-auto'>
-            {
-              stepState
-              ? stepState.map(step => <Step key={step.id} props={step} setStepState={setStepState}/>)
-              : null
-            }
+            <ReactSortable list={stepState} setList={setStepState} ghostClass='blue-background-class' animation={300} onEnd={() => console.log("hey")}>
+              {
+                stepState
+                ? stepState.map(step => <Step key={step.id} props={step} setStepState={setStepState}/>)
+                : null
+              }
+            </ReactSortable>
             <form className='flex items-center p-2 font-semibold text-sm' onSubmit={handleSubmitStep}>
               <PlusIcon className='w-4 h-4 mr-[1.03rem] text-blue-600'/>
               <input required value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} placeholder='Add Step' className='placeholder-opacity-100 w-[100%] focus:outline-none placeholder-blue-600'/>

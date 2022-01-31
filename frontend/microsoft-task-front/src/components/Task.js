@@ -44,7 +44,7 @@ const Task = ({props, setTaskState}) => {
   }
 
   return (
-    <div className='relative bg-slate-200 hover:bg-slate-100 rounded-md'>
+    <div className='relative bg-slate-200 hover:bg-slate-100 rounded-md mb-1'>
       <div className='active:scale-[0.993] transition-all ease-out duration-200'>
         <div onClick={() => handleClick(props)} className=' rounded-md'>
             <div className='flex items-center mx-5'>
