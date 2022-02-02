@@ -60,28 +60,25 @@ const Menu = () => {
     }, [selectedListTitle])
 
     return (
-        <div className='relative flex flex-col'>
-            {/* Miniprofile */}
-            <div>
-                <div className='flex flex-row items-center mb-3 mx-3'>
+        <div className='relative flex flex-col mx-1'>
+                <div className='flex flex-row items-center pl-[2%] pt-3'>
                     <img className='w-12 h-12 rounded-full' src={'https://images.media-allrecipes.com/userphotos/600x600/8531051.jpg'} alt='user'/>
-                    <div className='truncate ml-3'>
+                    <div className='ml-3'>
                         <span className='text-sm font-semibold'>Daniel Alejandro Espósito Briceño</span>
                         <p className='text-xs text-gray-700'>Active</p>
                     </div>
                 </div>
-            </div>
-            {/* List Things */}
+            
             <div className='h-[100%] overflow-auto'>
-                {/* Search Bar */}
-                <div className='relative mx-3 mb-5'> 
-                    <input value={searchState} onChange={(evt) => {setSearchState(evt.target.value)}} className='focus:ring-0  focus:border-b-2 border-b-2 pl-3 mx-1 border-gray-300 border-b-gray-400 shadow-sm rounded-[5px] text-sm text-justify h-8 w-[100%]' type="text" placeholder='Search' />
+                
+                <div className='relative mx-2 my-3'> 
+                    <input value={searchState} onChange={(evt) => {setSearchState(evt.target.value)}} className=' min-w-0 focus:ring-0  focus:border-b-2 border-b-2 border-gray-300 border-b-gray-400 shadow-sm rounded-[5px] text-sm text-justify h-8 w-[100%]' type="text" placeholder='Search' />
                     <div className='absolute h-4 w-4 right-2 top-2 pointer-events-none'>
                         <SearchIcon className='w-[3.5] h-[3.5] text-gray-500'/>
                     </div>
                 </div>
-                {/* Lists */}
-                <div className='flex flex-col ml-2 space-y-2'>
+    
+                <div className='flex flex-col space-y-2'>
                     <ReactSortable list={listState} setList={setListState} ghostClass='blue-background-class' animation={300} onEnd={() => rearrange(listState, 'list')}>
                         {
                             ! listState 
@@ -89,10 +86,10 @@ const Menu = () => {
                             : listState.map(list => filterList(list))
                         }
                     </ReactSortable>
-                </div>
+                </div>             
             </div>
-            {/* New List */}
-            <div onClick={() => createList()} className='border-t cursor-pointer flex items-center justify-between h-12 hover:bg-gray-300/40 rounded-sm ml-2'>
+            
+            <div onClick={() => createList()} className='border-t cursor-pointer flex items-center justify-between h-12 hover:bg-gray-300/40 rounded-sm'>
                 <div className='flex items-center'>
                     <PlusIcon className='w-6 h-5 text-black opacity-60'/>
                     <p className='text-sm ml-2'>New list</p>

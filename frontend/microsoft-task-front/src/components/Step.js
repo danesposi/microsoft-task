@@ -40,17 +40,17 @@ const Step = ({props, setStepState}) => {
   }
 
   return (
-    <div className='flex items-center pl-2 pt-2 pb-2 pr-2 text-sm border-t'>
+    <div className='flex items-center pl-2 pt-2 pb-2 pr-2 text-sm '>
         {
           props.done
           ? <CheckIcon className='h-5 w-5 cursor-pointer mr-4' onClick={() => completeStep(props.id, false)} />
           : <PlusCircleIcon className='h-5 w-5 cursor-pointer mr-4' onClick={() => completeStep(props.id, true)} />
         }
-        <div className='flex-1 active:scale-[0.99] transition-all ease-out duration-100'>
+        <div className='flex flex-1 active:scale-[0.99] transition-all ease-out duration-100'>
           {
             props.done
-            ? <input className='flex-1 line-through cursor-default' value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} onBlur={() => handleStepTitleSubmit()}></input>
-            : <input className='flex-1 cursor-default' value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} onBlur={() => handleStepTitleSubmit()}></input>
+            ? <input className='border-b flex-1 line-through cursor-default' value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} onBlur={() => handleStepTitleSubmit()}></input>
+            : <input className='border-b flex-1 cursor-default' value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} onBlur={() => handleStepTitleSubmit()}></input>
           }
         </div>
         <XIcon onClick={() => deleteStep(props.id)} className='cursor-pointer h-4 w-4'/>

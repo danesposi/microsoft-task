@@ -1,26 +1,25 @@
 import Menu from './components/Menu'
 import TaskDisplayer from './components/TaskDisplayer'
-import { Provider } from 'react-redux';
 import Sidebar from './components/Sidebar';
-import store from './store/store';
-import SortableExample from './components/SortableExample'
+import { useSelector } from 'react-redux';
 
 function App() {
 
+  const toggle = useSelector(store => store.toggle)
+  const toggleMenu = useSelector(store => store.toggleMenu)
+
   return (
-    <Provider store={store}>
-      <main className='relative flex flex-row bg-zinc-50 min-w-screen h-screen'>
-        <section className='py-2 hidden md:inline-flex md:w-[19rem] xl:inline-flex xl:w-[19rem] flex-shrink-0'>
+      <main className='grid grid-cols-1 lg:grid-cols-10 mx-auto'>
+        <section className={`hidden lg:relative lg:inline-grid lg:col-span-2 z-10`}>
           <Menu/>
         </section>
-        <section className='bg-blue-800/90 opacity-80 w-[100%] h-[100%] rounded-tl-lg'>
+        <section className={`col-span-1 ${toggle ? 'lg:col-span-6' : 'lg:col-span-8'}`}>
           <TaskDisplayer/>
         </section>
-        <section>
+        <section className={`${toggle ? 'col-span-2' : 'hidden'}`}>
           <Sidebar/>
         </section>
       </main>
-    </Provider>
   );
 }
 

@@ -24,7 +24,6 @@ const Sidebar = () => {
 
   const dispatch = useDispatch()
   const globalState = useSelector(state => state)
-  const toggle = globalState?.toggle
 
   // STEP FUNCTIONS, STATE & HANDLERS
 
@@ -102,12 +101,8 @@ const Sidebar = () => {
   }, [selectedTaskId])
 
   return (
-    <div className={
-      !toggle 
-      ? 'hidden' 
-      : 'hidden md:inline-flex md:h-[100%] xl:flex xl:h-[100%] xl:flex-col xl:justify-between overflow-auto'
-    }>
-      <div className='flex space-y-3 flex-col w-[19rem] right-0 md:hidden xl:inline-flex xl:w-[19rem]'>
+    <div className={'flex h-[100%] flex-col justify-between overflow-auto'}>
+      <div className='flex space-y-3 flex-col right-0'>
         <div className='mt-3 mr-3 text-zinc-500'>
           <XIcon onClick={onClickClose} className=' cursor-pointer w-5 h-5 float-right'/>
         </div>

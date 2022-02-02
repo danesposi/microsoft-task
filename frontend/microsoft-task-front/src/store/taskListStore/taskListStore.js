@@ -6,6 +6,7 @@ export const taskListInitialState = {
     selectedList: null,
     selectedTask: null,
     toggle: false,
+    toggleMenu: false
 };
 
 
