@@ -1,6 +1,6 @@
 import React from 'react'
 import Task from './Task'
-import { selectList } from '../store'
+import { selectList, toggleMenuSidebar } from '../store'
 import { ReactSortable } from 'react-sortablejs'
 import rearrange from '../services/rearrange'
 import { useState, useEffect } from 'react'
@@ -80,7 +80,7 @@ const TaskDisplayer = () => {
         <div className='bg-blue-800/90 opacity-80 rounded-tl-lg h-screen '>
             <div className='flex flex-col justify-between h-screen'>
                 <div className='flex flex-col my-12 mx-12'>
-                    <MenuIcon className='lg:hidden w-6 h-6 text-zinc-50 mb-5'/>
+                    <MenuIcon className='lg:hidden w-6 h-6 text-zinc-50 mb-5' onClick={() => dispatch(toggleMenuSidebar(true))}/>
                     <div className='flex items-center justify-between mb-5'>
                         <input onChange={(evt) => setListTitle(evt.target.value)} onBlur={handleSubmitListTitle} value={listTitle} className='min-w-0 flex-shrink-0 flex-1 text-2xl truncate text-zinc-50 font-semibold placeholder-black focus:outline-none focus:text-black focus:bg-slate-50 bg-inherit cursor-default focus:cursor-text'></input>
                         <div className='flex items-center'>

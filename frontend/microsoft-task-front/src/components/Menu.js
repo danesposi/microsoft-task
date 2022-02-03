@@ -2,18 +2,22 @@ import React from 'react'
 import List from './List'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleMenuSidebar } from '../store'
 import { ReactSortable } from 'react-sortablejs'
 import rearrange from '../services/rearrange'
 import { getListApi, createListApi, deleteListApi } from '../services/api'
 import {
     SearchIcon,
     PlusIcon,
-    CollectionIcon
+    CollectionIcon,
+    MenuIcon
 } from '@heroicons/react/outline'
 
 
 const Menu = () => {
+
+    const dispatch = useDispatch()
 
     const [listState, setListState] = useState([])
     const [searchState, setSearchState] = useState('')
@@ -60,7 +64,8 @@ const Menu = () => {
     }, [selectedListTitle])
 
     return (
-        <div className='relative flex flex-col w-[100%] mx-2'>
+        <div className='relative flex flex-col w-[100%] h-screen'>
+                <MenuIcon className='w-7 h-7 mt-10 ml-2 lg:hidden opacity-70' onClick={() => dispatch(toggleMenuSidebar(false))}/>
                 <div className='flex flex-row items-center pl-[2%] pt-3'>
                     <img className='mr-3 w-14 h-14 rounded-full' src={'https://images.media-allrecipes.com/userphotos/600x600/8531051.jpg'} alt='user'/>
                     <div className='w-[90%] truncate'>
@@ -71,7 +76,7 @@ const Menu = () => {
             
             <div className='h-[100%] overflow-auto'>
                 
-                <div className='relative mx-2 my-4'> 
+                <div className='relative mx-2 my-4'>
                     <input value={searchState} onChange={(evt) => {setSearchState(evt.target.value)}} className=' min-w-0 focus:ring-0  focus:border-b-2 border-b-2 border-gray-300 border-b-gray-400 shadow-sm rounded-[5px] text-base text-justify h-8 w-[100%]' type="text" placeholder='Search' />
                     <div className='absolute h-4 w-4 right-2 top-2 pointer-events-none'>
                         <SearchIcon className='w-[3.5] h-[3.5] text-gray-500'/>
@@ -79,7 +84,7 @@ const Menu = () => {
                 </div>
     
                 <div className='flex flex-col'>
-                    <ReactSortable className='space-y-2' list={listState} setList={setListState} ghostClass='blue-background-class' animation={300} onEnd={() => rearrange(listState, 'list')}>
+                    <ReactSortable className='space-y-2 mx-1' list={listState} setList={setListState} ghostClass='blue-background-class' animation={300} onEnd={() => rearrange(listState, 'list')}>
                         {
                             ! listState 
                             ? []
@@ -89,7 +94,7 @@ const Menu = () => {
                 </div>             
             </div>
             
-            <div onClick={() => createList()} className='border-t mb-1 cursor-pointer flex items-center justify-between h-12 hover:bg-gray-300/40 rounded-sm'>
+            <div onClick={() => createList()} className=' mx-1 border-t mb-1 cursor-pointer flex items-center justify-between h-12 hover:bg-gray-300/40 rounded-sm'>
                 <div className='flex items-center'>
                     <PlusIcon className='w-6 h-5 text-black opacity-60'/>
                     <p className='text-base ml-2'>New list</p>

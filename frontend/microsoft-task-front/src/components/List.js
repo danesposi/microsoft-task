@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { selectList } from '../store'
+import { selectList, toggleMenuSideba, toggleMenuSidebar } from '../store'
 import {
     TrashIcon,
     MenuIcon
@@ -11,6 +11,7 @@ const List = ({props, deleteList}) => {
     const dispatch = useDispatch()
     const handleClick = (list) => {
         dispatch(selectList(list))
+        dispatch(toggleMenuSidebar(false))
     }
 
     return (
