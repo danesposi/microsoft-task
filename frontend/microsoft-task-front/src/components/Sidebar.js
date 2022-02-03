@@ -114,24 +114,20 @@ const Sidebar = () => {
               : <CheckCircleIcon className='w-5 h-5 mr-3'/>
             }
             <div className='active:scale-[0.99] transition-all ease-out duration-100'>
-              {
-                selectedTask?.done
-                ? <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleSubmitTaskTitle} className=' cursor-default line-through text-lg font-semibold flex-1'></input>
-                : <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleSubmitTaskTitle} className=' cursor-default text-lg font-semibold flex-1'></input>
-              }
+            <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleSubmitTaskTitle} className={`cursor-default text-xl font-semibold flex-1 ${selectedTask?.done ? 'line-through' : null}`}></input>
             </div>
           </div>
-          <div className='max-h-96 overflow-auto'>
-            <ReactSortable list={stepState} setList={setStepState} ghostClass='blue-background-class' animation={300} onEnd={() => rearrange(stepState, 'step')}>
+          <div className='max-h-96 overflow-auto mt-2'>
+            <ReactSortable className='mx-2 space-y-4' list={stepState} setList={setStepState} ghostClass='blue-background-class' animation={300} onEnd={() => rearrange(stepState, 'step')}>
               {
                 stepState
                 ? stepState.map(step => <Step key={step.id} props={step} setStepState={setStepState}/>)
                 : null
               }
             </ReactSortable>
-            <form className='flex items-center p-2 font-semibold text-sm' onSubmit={handleSubmitStep}>
+            <form className='flex items-center mx-3 my-4 font-semibold text-sm ' onSubmit={handleSubmitStep}>
               <PlusIcon className='w-4 h-4 mr-[1.03rem] text-blue-600'/>
-              <input required value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} placeholder='Add Step' className='placeholder-opacity-100 w-[100%] focus:outline-none placeholder-blue-600'/>
+              <input required value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} placeholder='Add Step' className='text-base placeholder-opacity-100 w-[100%] focus:outline-none placeholder-blue-600'/>
             </form>
           </div>
         </div>
@@ -142,28 +138,28 @@ const Sidebar = () => {
         <div className=' cursor-not-allowed flex flex-col p-2 space-y-3 bg-white text-sm opacity-80 mx-2 border'>
           <div className='flex items-center'>
             <ClockIcon className='w-4 h-4 mr-[1.03rem]'/>
-            <p>Reminder</p>
+            <p className='text-base'>Reminder</p>
           </div>
           <hr />
           <div className='flex items-center'>
             <CalendarIcon className='w-4 h-4 mr-[1.03rem]'/>
-            <p>Add to calendar</p>
+            <p className='text-base'>Add to calendar</p>
           </div>
           <hr />
           <div className='flex items-center'>
             <ClipboardCheckIcon className='w-4 h-4 mr-[1.03rem]'/>
-            <p>Repeat</p>
+            <p className='text-base'>Repeat</p>
           </div>
         </div>
         <div className='cursor-not-allowed flex items-center border mx-2 p-2 bg-white text-sm opacity-80'>
           <UserAddIcon className='w-4 h-4 mr-[1.03rem]'/>
-          <p>Assign to</p>
+          <p className='text-base'>Assign to</p>
         </div>
         <div className='cursor-not-allowed flex items-center border mx-2 p-2 bg-white text-sm opacity-80'>
           <PaperClipIcon className='w-4 h-4 mr-[1.03rem]'/>
-          <p>Attach</p>
+          <p className='text-base'>Attach</p>
         </div>
-        <textarea maxLength={200} value={taskNote} onChange={(evt) => setTaskNote(evt.target.value)} onBlur={handleSubmitTaskNote} className='focus:outline-none focus:border-1 focus:ring-transparent border mx-2 p-2 text-sm' placeholder='Add note'/>
+        <textarea maxLength={200} value={taskNote} onChange={(evt) => setTaskNote(evt.target.value)} onBlur={handleSubmitTaskNote} className='focus:outline-none focus:border-1 focus:ring-transparent border mx-2 p-2 text-base' placeholder='Add note'/>
       </div>
         <div className='flex border-t text-sm opacity-80 items-center mx-3'>
           <p className='py-3 flex-1'>Created Monday., oct 25th 2021</p>

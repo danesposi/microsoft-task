@@ -17,13 +17,13 @@ const List = ({props, deleteList}) => {
         <div className='relative hover:bg-gray-300/40'>
             <div className='active:scale-[0.98] transition-all ease-out duration-200'>
                 <div onClick={() => handleClick(props)} className='flex items-center justify-between h-12  rounded-sm'>
-                    <div className='flex items-center'>
+                    <div className='flex items-center w-[100%]'>
                         <MenuIcon className='w-6 h-5 text-blue-900 opacity-60'/>
-                        <p className='text-sm ml-2'>{props.title}</p>
+                        <p className='text-base ml-2 w-[70%] truncate'>{props.title}</p>
                     </div>
                 </div>
-                <div className='absolute text-xs text-center inset-y-4 right-3'>
-                    <TrashIcon onClick={() => deleteList(props.id)} className="text-red-900 opacity-60 hover:text-red-600 hover:opacity-100 w-4 h-4 cursor-pointer"/>
+                <div className='absolute text-center inset-y-4 right-3'>
+                    <TrashIcon onClick={() => deleteList(props.id)} className="text-red-900 opacity-60 hover:text-red-600 hover:opacity-100 w-[1.15rem] h-[1.15rem] cursor-pointer"/>
                 </div>
             </div>
         </div>
