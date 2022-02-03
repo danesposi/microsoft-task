@@ -9,7 +9,8 @@ import { getTaskByListApi, createTaskApi, modifyListTitleApi } from '../services
 import {
     UserAddIcon,
     DotsHorizontalIcon,
-    PlusIcon
+    PlusIcon,
+    MenuIcon
 } from '@heroicons/react/outline'
 
 
@@ -79,8 +80,9 @@ const TaskDisplayer = () => {
         <div className='bg-blue-800/90 opacity-80 rounded-tl-lg h-screen '>
             <div className='flex flex-col justify-between h-screen'>
                 <div className='flex flex-col my-12 mx-12'>
+                    <MenuIcon className='lg:hidden w-6 h-6 text-zinc-50 mb-5'/>
                     <div className='flex items-center justify-between mb-5'>
-                        <input onChange={(evt) => setListTitle(evt.target.value)} onBlur={handleSubmitListTitle} value={listTitle} className='min-w-0 flex-shrink-0 flex-1 text-2xl text-zinc-50 font-semibold placeholder-black focus:outline-none focus:text-black focus:bg-slate-50 bg-inherit cursor-default focus:cursor-text'></input>
+                        <input onChange={(evt) => setListTitle(evt.target.value)} onBlur={handleSubmitListTitle} value={listTitle} className='min-w-0 flex-shrink-0 flex-1 text-2xl truncate text-zinc-50 font-semibold placeholder-black focus:outline-none focus:text-black focus:bg-slate-50 bg-inherit cursor-default focus:cursor-text'></input>
                         <div className='flex items-center'>
                             <UserAddIcon className='bg-zinc-50/60 w-5 h-5 rounded-sm cursor-not-allowed'/>
                             <DotsHorizontalIcon className='text-zinc-50 w-5 h-5 ml-5 cursor-not-allowed'/>

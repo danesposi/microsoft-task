@@ -133,7 +133,7 @@ const Sidebar = () => {
         </div>
         <div className='cursor-not-allowed flex items-center border mx-2 p-2 bg-white text-sm opacity-80'>
           <SunIcon className='w-4 h-4 mr-[1.03rem]'/>
-          <p>Add to My Day</p>
+          <p className='text-base' >Add to My Day</p>
         </div>
         <div className=' cursor-not-allowed flex flex-col p-2 space-y-3 bg-white text-sm opacity-80 mx-2 border'>
           <div className='flex items-center'>
