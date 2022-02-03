@@ -84,7 +84,7 @@ const TaskDisplayer = () => {
                     <div className='flex items-center justify-between mb-5'>
                         <input onChange={(evt) => setListTitle(evt.target.value)} onBlur={handleSubmitListTitle} value={listTitle} className='min-w-0 flex-shrink-0 flex-1 text-2xl truncate text-zinc-50 font-semibold placeholder-black focus:outline-none focus:text-black focus:bg-slate-50 bg-inherit cursor-default focus:cursor-text'></input>
                         <div className='flex items-center'>
-                            <UserAddIcon className='bg-zinc-50/60 w-5 h-5 rounded-sm cursor-not-allowed'/>
+                            <UserAddIcon className='bg-zinc-50/60 w-5 h-5 rounded-md cursor-not-allowed'/>
                             <DotsHorizontalIcon className='text-zinc-50 w-5 h-5 ml-5 cursor-not-allowed'/>
                         </div>
                     </div> 
