@@ -16,7 +16,7 @@ function App() {
         <section className={`col-span-1 ${toggle ? 'lg:col-span-6' : 'lg:col-span-8'}`}>
           <TaskDisplayer/>
         </section>
-        <section className={`${toggle ? 'col-span-2' : 'hidden'}`}>
+        <section className={`${toggle ? 'col-span-2 absolute w-full h-full bg-zinc-50 lg:relative' : 'hidden'}`}>
           <Sidebar/>
         </section>
       </main>
