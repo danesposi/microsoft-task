@@ -48,11 +48,7 @@ const Task = ({props, setTaskState}) => {
       <div className='active:scale-[0.993] transition-all ease-out duration-200'>
         <div onClick={() => handleClick(props)} className=' rounded-md'>
             <div className='flex items-center mx-5'>
-                <p className={
-                  props.done
-                  ? "pt-4 pb-4 ml-7 flex-1 line-through"
-                  : "pt-4 pb-4 ml-7 flex-1"
-                }>{props.title}</p>
+                <p className={`pt-4 pb-4 ml-7 flex-1 text-lg ${props.done ? 'line-through' : null }`}>{props.title}</p>
                 <StarIcon className='text-zinc-500 h-5 w-5'/>
             </div>
         </div>

@@ -1,1 +1,1 @@
-export { selectList, selectTask, closeSidebar } from "./taskListStore/taskListStore";
+export { selectList, selectTask, closeSidebar, toggleMenuSidebar } from "./taskListStore/taskListStore";
