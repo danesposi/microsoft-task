@@ -16,7 +16,7 @@ const List = ({props, deleteList}) => {
 
     return (
         <div className='relative hover:bg-gray-300/40'>
-            <div className='active:scale-[0.98] transition-all ease-out duration-200'>
+            <div className='relative active:scale-[0.98] transition-all ease-out duration-200'>
                 <div onClick={() => handleClick(props)} className='flex items-center justify-between h-12  rounded-sm'>
                     <div className='flex items-center w-[100%]'>
                         <MenuIcon className='w-6 h-5 text-blue-900 opacity-60'/>
