@@ -103,7 +103,7 @@ const TaskDisplayer = () => {
             <div className='rounded-md bg-slate-100/75 mt-2 mx-12 my-12'>
                 <form className='flex items-center mx-5 ' onSubmit={handleSubmitTask}>
                     <PlusIcon className='h-6 w-6 mr-3 pointer-events-none'/>
-                    <input maxLength={80} value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} className='text-lg min-w-0 pt-4 pb-4 flex-1 bg-slate-100/5 focus:outline-none placeholder-black placeholder-opacity-100' placeholder='Add task'></input>
+                    <input maxLength={80} value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} className='text-sm min-w-0 pt-4 pb-4 flex-1 bg-slate-100/5 focus:outline-none placeholder-black placeholder-opacity-100' placeholder='Add task'></input>
                 </form>
             </div>             
             </div>
