@@ -20,7 +20,7 @@ const List = ({props, deleteList}) => {
                 <div onClick={() => handleClick(props)} className='flex items-center justify-between h-12  rounded-sm'>
                     <div className='flex items-center w-[100%]'>
                         <MenuIcon className='w-6 h-5 text-blue-900 opacity-60'/>
-                        <p className='test-sm ml-2 w-[70%] truncate'>{props.title}</p>
+                        <p className='text-sm ml-2 w-[70%] truncate'>{props.title}</p>
                     </div>
                 </div>
                 <div className='absolute text-center inset-y-4 right-3'>

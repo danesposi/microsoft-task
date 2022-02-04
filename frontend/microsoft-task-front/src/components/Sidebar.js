@@ -114,7 +114,7 @@ const Sidebar = () => {
               : <CheckCircleIcon className='w-5 h-5 mr-3'/>
             }
             <div className='active:scale-[0.99] transition-all ease-out duration-100'>
-            <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleSubmitTaskTitle} className={`cursor-default text-xl font-semibold flex-1 ${selectedTask?.done ? 'line-through' : null}`}></input>
+            <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleSubmitTaskTitle} className={`cursor-default text-base font-semibold flex-1 ${selectedTask?.done ? 'line-through' : null}`}></input>
             </div>
           </div>
           <div className='my-2 mx-2 space-y-4'>
@@ -125,39 +125,39 @@ const Sidebar = () => {
               }
             <form className='flex items-center font-semibold ' onSubmit={handleSubmitStep}>
               <PlusIcon className='w-5 h-5 ml-[0.12rem] mr-4 text-blue-600'/>
-              <input required value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} placeholder='Add Step' className='test-sm placeholder-opacity-100 w-[100%] focus:outline-none placeholder-blue-600'/>
+              <input required value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} placeholder='Add Step' className='text-sm placeholder-opacity-100 w-[100%] focus:outline-none placeholder-blue-600'/>
             </form>
           </div>
         </div>
         <div className='cursor-not-allowed flex items-center border mx-2 p-2 bg-white text-sm opacity-80'>
           <SunIcon className='w-4 h-4 mr-[1.03rem]'/>
-          <p className='test-sm' >Add to My Day</p>
+          <p className='text-sm' >Add to My Day</p>
         </div>
         <div className=' cursor-not-allowed flex flex-col p-2 space-y-3 bg-white text-sm opacity-80 mx-2 border'>
           <div className='flex items-center'>
             <ClockIcon className='w-4 h-4 mr-[1.03rem]'/>
-            <p className='test-sm'>Reminder</p>
+            <p className='text-sm'>Reminder</p>
           </div>
           <hr />
           <div className='flex items-center'>
             <CalendarIcon className='w-4 h-4 mr-[1.03rem]'/>
-            <p className='test-sm'>Add to calendar</p>
+            <p className='text-sm'>Add to calendar</p>
           </div>
           <hr />
           <div className='flex items-center'>
             <ClipboardCheckIcon className='w-4 h-4 mr-[1.03rem]'/>
-            <p className='test-sm'>Repeat</p>
+            <p className='text-sm'>Repeat</p>
           </div>
         </div>
         <div className='cursor-not-allowed flex items-center border mx-2 p-2 bg-white text-sm opacity-80'>
           <UserAddIcon className='w-4 h-4 mr-[1.03rem]'/>
-          <p className='test-sm'>Assign to</p>
+          <p className='text-sm'>Assign to</p>
         </div>
         <div className='cursor-not-allowed flex items-center border mx-2 p-2 bg-white text-sm opacity-80'>
           <PaperClipIcon className='w-4 h-4 mr-[1.03rem]'/>
-          <p className='test-sm'>Attach</p>
+          <p className='text-sm'>Attach</p>
         </div>
-        <textarea maxLength={200} value={taskNote} onChange={(evt) => setTaskNote(evt.target.value)} onBlur={handleSubmitTaskNote} className='focus:outline-none focus:border-1 focus:ring-transparent border mx-2 p-2 test-sm' placeholder='Add note'/>
+        <textarea maxLength={200} value={taskNote} onChange={(evt) => setTaskNote(evt.target.value)} onBlur={handleSubmitTaskNote} className='focus:outline-none focus:border-1 focus:ring-transparent border mx-2 p-2 text-sm' placeholder='Add note'/>
       </div>
       <div className='flex border-t text-sm opacity-80 items-center mx-3'>
         <p className='py-3 flex-1'>Created Monday., oct 25th 2021</p>

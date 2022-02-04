@@ -49,8 +49,8 @@ const Step = ({props, setStepState}) => {
         <div className='flex flex-1 active:scale-[0.99] transition-all ease-out duration-100'>
           {
             props.done
-            ? <input className='border-b test-sm flex-1 line-through cursor-default' value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} onBlur={() => handleStepTitleSubmit()}></input>
-            : <input className='border-b test-sm flex-1 cursor-default' value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} onBlur={() => handleStepTitleSubmit()}></input>
+            ? <input className='border-b text-sm flex-1 line-through cursor-default' value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} onBlur={() => handleStepTitleSubmit()}></input>
+            : <input className='border-b text-sm flex-1 cursor-default' value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} onBlur={() => handleStepTitleSubmit()}></input>
           }
         </div>
         <XIcon onClick={() => deleteStep(props.id)} className='cursor-pointer h-4 w-4'/>

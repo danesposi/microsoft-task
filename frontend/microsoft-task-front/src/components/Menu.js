@@ -69,7 +69,7 @@ const Menu = () => {
                 <div className='flex flex-row items-center pl-[2%] pt-3'>
                     <img className='mr-3 w-14 h-14 rounded-full' src={'https://images.media-allrecipes.com/userphotos/600x600/8531051.jpg'} alt='user'/>
                     <div className='w-[90%] truncate'>
-                        <span className='test-sm font-semibold truncate'>Daniel Alejandro Espósito</span>
+                        <span className='text-sm font-semibold truncate'>Daniel Alejandro Espósito</span>
                         <p className='text-sm text-gray-700'>Active</p>
                     </div>
                 </div>
@@ -77,7 +77,7 @@ const Menu = () => {
             <div className='h-[100%] overflow-auto'>
                 
                 <div className='relative mx-2 my-4'>
-                    <input value={searchState} onChange={(evt) => {setSearchState(evt.target.value)}} className=' min-w-0 focus:ring-0  focus:border-b-2 border-b-2 border-gray-300 border-b-gray-400 shadow-sm rounded-[5px] test-sm text-justify h-8 w-[100%]' type="text" placeholder='Search' />
+                    <input value={searchState} onChange={(evt) => {setSearchState(evt.target.value)}} className=' min-w-0 focus:ring-0  focus:border-b-2 border-b-2 border-gray-300 border-b-gray-400 shadow-sm rounded-[5px] text-sm text-justify h-8 w-[100%]' type="text" placeholder='Search' />
                     <div className='absolute h-4 w-4 right-2 top-2 pointer-events-none'>
                         <SearchIcon className='w-[3.5] h-[3.5] text-gray-500'/>
                     </div>
@@ -97,7 +97,7 @@ const Menu = () => {
             <div onClick={() => createList()} className=' mx-1 border-t mb-1 cursor-pointer flex items-center justify-between h-12 hover:bg-gray-300/40 rounded-sm'>
                 <div className='flex items-center'>
                     <PlusIcon className='w-6 h-5 text-black opacity-60'/>
-                    <p className='test-sm ml-2'>New list</p>
+                    <p className='text-sm ml-2'>New list</p>
                 </div>
             </div>
             <CollectionIcon className='absolute bottom-[0.83rem] right-1 cursor-not-allowed w-6 h-5 text-black opacity-60 mr-2'/>
