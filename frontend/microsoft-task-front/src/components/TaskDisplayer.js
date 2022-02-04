@@ -37,7 +37,7 @@ const TaskDisplayer = () => {
     
     const handleSubmitTask = (evt) => {
         evt.preventDefault()
-        if (taskState.length < 10) {
+        if (taskState.length < 9) {
             const data = {
                 title: taskTitle,
                 important: false,
