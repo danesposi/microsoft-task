@@ -43,7 +43,7 @@ const Sidebar = () => {
   
   const handleSubmitStep = async (evt) => {
     evt.preventDefault()
-    if (stepState.length < 6 ) {
+    if (stepState.length < 20 ) {
       const data = {
         title: stepTitle,
         task: selectedTaskId,
@@ -102,7 +102,7 @@ const Sidebar = () => {
 
   return (
     <div className={'flex h-[100%] flex-col justify-between'}>
-      <div className='flex space-y-3 flex-col overflow-auto'>
+      <div className='flex space-y-3 flex-col overflow-auto max-h-[46rem]'>
         <div className='mt-3 mr-3 text-zinc-500'>
           <XIcon onClick={onClickClose} className=' cursor-pointer w-5 h-5 float-right'/>
         </div>
@@ -117,17 +117,17 @@ const Sidebar = () => {
             <input value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} onBlur={handleSubmitTaskTitle} className={`cursor-default text-base font-semibold flex-1 ${selectedTask?.done ? 'line-through' : null}`}></input>
             </div>
           </div>
-          <div className='my-2 mx-2 space-y-4'>
+          <ReactSortable className='overflow-auto max-h-[22rem] lg:max-h-[48rem] my-2 mx-2 space-y-4' list={stepState} setList={setStepState} ghostClass='blue-background-class' animation={300} onEnd={() => rearrange(stepState, 'step')}>
               {
                 stepState
                 ? stepState.map(step => <Step key={step.id} props={step} setStepState={setStepState}/>)
                 : null
               }
-            <form className='flex items-center font-semibold ' onSubmit={handleSubmitStep}>
-              <PlusIcon className='w-5 h-5 ml-[0.12rem] mr-4 text-blue-600'/>
+          </ReactSortable>
+            <form className='flex items-center font-semibold my-1' onSubmit={handleSubmitStep}>
+              <PlusIcon className='w-5 h-5 ml-[0.60rem] mr-[1.1rem] text-blue-600'/>
               <input required value={stepTitle} onChange={(evt) => setStepTitle(evt.target.value)} placeholder='Add Step' className='text-sm placeholder-opacity-100 w-[100%] focus:outline-none placeholder-blue-600'/>
             </form>
-          </div>
         </div>
         <div className='cursor-not-allowed flex items-center border mx-2 p-2 bg-white text-sm opacity-80'>
           <SunIcon className='w-4 h-4 mr-[1.03rem]'/>
@@ -157,7 +157,9 @@ const Sidebar = () => {
           <PaperClipIcon className='w-4 h-4 mr-[1.03rem]'/>
           <p className='text-sm'>Attach</p>
         </div>
-        <textarea maxLength={200} value={taskNote} onChange={(evt) => setTaskNote(evt.target.value)} onBlur={handleSubmitTaskNote} className='focus:outline-none focus:border-1 focus:ring-transparent border mx-2 p-2 text-sm' placeholder='Add note'/>
+        <div className='flex h-20'>
+          <textarea maxLength={200} value={taskNote} onChange={(evt) => setTaskNote(evt.target.value)} onBlur={handleSubmitTaskNote} className='flex-1 focus:outline-none focus:border-1 focus:ring-transparent border mx-2 p-2 text-sm ' placeholder='Add note'/>
+        </div>
       </div>
       <div className='flex border-t text-sm opacity-80 items-center mx-3'>
         <p className='py-3 flex-1'>Created Monday., oct 25th 2021</p>

@@ -37,7 +37,7 @@ const TaskDisplayer = () => {
     
     const handleSubmitTask = (evt) => {
         evt.preventDefault()
-        if (taskState.length < 9) {
+        if (taskState.length < 20) {
             const data = {
                 title: taskTitle,
                 important: false,
@@ -90,8 +90,8 @@ const TaskDisplayer = () => {
                     </div> 
 
             
-                    <div className='flex flex-col flex-1 overflow-auto'>
-                        <ReactSortable list={taskState} setList={setTaskState} ghostClass='blue-background-class' animation={300} onEnd={() => rearrange(taskState, 'task')}>
+                    <div className='flex flex-col flex-1'>
+                        <ReactSortable className='overflow-auto max-h-[22rem] lg:max-h-[48rem]' list={taskState} setList={setTaskState} ghostClass='blue-background-class' animation={300} onEnd={() => rearrange(taskState, 'task')}>
                             {
                                 !taskState
                                 ? null
@@ -99,11 +99,12 @@ const TaskDisplayer = () => {
                             }
                         </ReactSortable>
                     </div> 
+                    
                 </div>
             <div className='rounded-md bg-slate-100/75 mt-2 mx-12 my-12'>
                 <form className='flex items-center mx-5 ' onSubmit={handleSubmitTask}>
                     <PlusIcon className='h-6 w-6 mr-3 pointer-events-none'/>
-                    <input maxLength={80} value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} className='text-sm min-w-0 pt-4 pb-4 flex-1 bg-slate-100/5 focus:outline-none placeholder-black placeholder-opacity-100' placeholder='Add task'></input>
+                    <input maxLength={80} value={taskTitle} onChange={(evt) => setTaskTitle(evt.target.value)} className='text-lg min-w-0 pt-4 pb-4 flex-1 bg-slate-100/5 focus:outline-none placeholder-black placeholder-opacity-100' placeholder='Add task'></input>
                 </form>
             </div>             
             </div>

@@ -25,11 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-CORS_ALLOWED_ORIGINS = [
-"https://microsoft-task.vercel.app"
-]
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ALLOWED_ORIGINS = [
+# "https://microsoft-task.vercel.app"
+# ]
 
 ALLOWED_HOSTS = ["*"]
 
