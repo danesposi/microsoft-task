@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-const LIST_URL = "http://localhost:8000/api/v1/list/"
-const TASK_URL = "http://localhost:8000/api/v1/task/"
-const STEP_URL = "http://localhost:8000/api/v1/step/"
-const TASK_BY_LIST_URL = "http://localhost:8000/api/v1/task/?list="
-const STEP_BY_TASK_URL = "http://localhost:8000/api/v1/step/?task="
+const LIST_URL = "https://microsoft-task-api.herokuapp.com/api/v1/list/"
+const TASK_URL = "https://microsoft-task-api.herokuapp.com/api/v1/task/"
+const STEP_URL = "https://microsoft-task-api.herokuapp.com/api/v1/step/"
+const TASK_BY_LIST_URL = "https://microsoft-task-api.herokuapp.com/api/v1/task/?list="
+const STEP_BY_TASK_URL = "https://microsoft-task-api.herokuapp.com/api/v1/step/?task="
 
 
 export const getListApi = async () => {
